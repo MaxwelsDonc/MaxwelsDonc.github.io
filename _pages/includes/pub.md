@@ -1,4 +1,3 @@
-
 # Publications 
 
 <!-- <strong><span class='show_paper_citations' data='谷歌学术的链接里面找，形式参考现有的'></span></strong> -->
@@ -16,7 +15,7 @@
 </div>
 </div>
 
-<!-- 文章2 -->
+<!-- 文章 -->
 <div class='paper-box'> <div class='paper-box-image'> <div><div class="badge"><a href="https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=24" style="color: white; text-decoration: none;">TR 2021</a></div><img src='images/DEEPSIM- DEEP SEMANTIC INFORMATION-BASED AUTOMATIC MANDELBUG CLASSIFICATION.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
@@ -30,8 +29,15 @@
 </div>
 </div>
 
+<!-- 文章 -->
+- [`KBS 2024`](https://www.sciencedirect.com/journal/knowledge-based-systems) [TraceNet: Tracing and locating the key elements in sentiment analysis](https://www.sciencedirect.com/science/article/pii/S0950705123005427), Qinghua Zhao, Junfeng Liu, Zhongfeng Kang, **Zenghui Zhou**. [**Project**](https://github.com/MaxwelsDonc) <strong><span class='show_paper_citations' data='mrf-JvkAAAAJ:2osOgNQ5qMEC'></span></strong>
+
+<!-- 文章 -->
+- [`ESA 2023`](https://www.sciencedirect.com/journal/expert-systems-with-applications) [Is word order considered by foundation models? A comparative task-oriented analysis](https://www.sciencedirect.com/science/article/pii/S0957417423032025#tbl4), Qinghua Zhao, Jiaang Li, Junfeng Liu, Zhongfeng Kang, **Zenghui Zhou**. [**Project**](https://github.com/MaxwelsDonc) <strong><span class='show_paper_citations' data='mrf-JvkAAAAJ:qjMakFHDy7sC'></span></strong>
+
+
 <!-- 文章3 -->
-- [`MET 2021`](http://metwiki.net/MET21/) [Follow-up Test Cases are Better Than Source Test Cases in Metamorphic Testing: A Preliminary Study](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9477655), **Zenghui Zhou**, Zheng Zheng, Tsong Yueh Chen, Jinyi Zhou,Kun Qiu.\| [**Project**](https://github.com/MaxwelsDonc) <strong><span class='show_paper_citations' data='mrf-JvkAAAAJ:9yKSN-GCB0IC'></span></strong>
+- [`MET 2021`](http://metwiki.net/MET21/) [Follow-up Test Cases are Better Than Source Test Cases in Metamorphic Testing: A Preliminary Study](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9477655), **Zenghui Zhou**, Zheng Zheng, Tsong Yueh Chen, Jinyi Zhou,Kun Qiu. [**Project**](https://github.com/MaxwelsDonc) <strong><span class='show_paper_citations' data='mrf-JvkAAAAJ:9yKSN-GCB0IC'></span></strong>
 
 
 <!-- 
