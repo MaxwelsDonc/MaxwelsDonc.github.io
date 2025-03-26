@@ -6,30 +6,30 @@
 # `jekyll serve`. If you change this file, please restart the server process.
 
 # Site Settings
-title                    : "Yi Ren (任意)"
-description              : "Research scientist in TikTok, Data-Speech Dept. Focusing on speech, NLP and music."
-repository               : "rayeren/rayeren.github.io"
+title                    : "zhouzenghui(周增辉)"
+description              : "早睡早起，多喝水，多运动。"
+repository               : "MaxwelsDonc/MaxwelsDonc.github.io"
 google_scholar_stats_use_cdn : true
 
 # google analytics
-google_analytics_id      : G-SWFCX99KQZ
+google_analytics_id      : G-6VT97KX01G # get google_analytics_id from https://analytics.google.com/analytics/
 
 # SEO Related
-google_site_verification : b_BbOIt7d513ZXYDw-YRMicO6O5tthYiouqWDdWjGTU
-bing_site_verification   : B5AA590E7B9C03956A6F7DEC0F776211
-baidu_site_verification  : code-ZxFK3f4pfb
+google_site_verification : OCvvlk_3Ad625F1DTBg2EuTRkA4gH00L42JGI5n_5rE  # get google_site_verification from https://search.google.com/search-console/about
+bing_site_verification   : 398A9452A6FE4CD18DACB9F379E02632 # get bing_site_verification from https://www.bing.com/webmasters/about
+baidu_site_verification  : codeva-cVScaZuOVg # get baidu_site_verification from https://ziyuan.baidu.com/login/index?u=/site/index
 
 # Site Author
 author:
-  name             : "Yi Ren (任意)"
-  avatar           : "images/ry_profile.jpeg"
-  bio              : "TikTok"
-  location         : "Singapore"
+  name             : "周增辉 zhouzenghui"
+  avatar           : "images/profile.jpeg"
+  bio              : "Beihang University"
+  location         : "Beijing, China"
   employer         :
   pubmed           : 
-  googlescholar    : "https://scholar.google.com/citations?user=4FA6C0AAAAAJ"
-  email            : "rayeren613@gmail.com"
-  researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
+  googlescholar    : "https://scholar.google.com.hk/citations?user=mrf-JvkAAAAJ"
+  email            : "zhouzenghui@buaa.edu.cn"
+  researchgate     : "https://www.researchgate.net/profile/Zenghui-Zhou-2"
   uri              :
   bitbucket        :
   codepen          :
@@ -37,19 +37,18 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "RayeRen"
+  github           : "MaxwelsDonc"
   google_plus      :
   keybase          :
   instagram        :
-  impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
+  impactstory      : # e.g., "https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   lastfm           :
-  linkedin         : "rayeren"
-  dblp             : "https://dblp.org/pid/75/6568-6.html"
-  orcid            : "https://orcid.org/0000-0002-9160-3848"
+  linkedin         : # e.g., "linkedin username"
+  dblp             : # e.g., "https://dblp.org/pid/xx/xxxx.html"
+  orcid            : https://orcid.org/0000-0002-1824-6979"
   pinterest        :
   soundcloud       :
-  stackoverflow    : # http://stackoverflow.com/users/123456/username
-  steam            :
+  stackoverflow    : https://stackoverflow.com/users/18479002/zhouzenghui
   tumblr           :
   twitter          : 
   vine             :
@@ -57,6 +56,7 @@ author:
   xing             :
   youtube          :
   wikipedia        :
+
 
 
 # Reading Files

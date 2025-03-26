@@ -1,1 +1,1 @@
-bundle exec jekyll liveserve
+docker compose up
