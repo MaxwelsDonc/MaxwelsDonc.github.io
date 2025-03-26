@@ -1,6 +1,8 @@
 
 # Publications 
 
+- [`SQJ 2024`](https://www.springer.com/journal/11219) [Evaluating the effectiveness of neuron coverage metrics: a metamorphic-testing approach](https://assets-eu.researchsquare.com/files/rs-4660114/v1_covered_0749422e-5316-429c-a3bb-5f753e5a28ec.pdf?c=1721785350), **Zenghui Zhou**, Pak-Lok Poon, Tsong Yueh Chen, Kun Qiu, Qinghua Zhou, Zheng Zheng.<br> \|[**Project**](https://github.com/MaxwelsDonc) <strong><span class='show_paper_citations' data='mrf-JvkAAAAJ:Tyk-4Ss8FVUC'></span></strong>
+
 <!-- 文章 -->
 - [`KBS 2024`](https://www.sciencedirect.com/journal/knowledge-based-systems) [TraceNet: Tracing and locating the key elements in sentiment analysis](https://www.sciencedirect.com/science/article/pii/S0950705123005427), Qinghua Zhao, Junfeng Liu, Zhongfeng Kang, **Zenghui Zhou**. [**Project**](https://github.com/MaxwelsDonc) <strong><span class='show_paper_citations' data='mrf-JvkAAAAJ:2osOgNQ5qMEC'></span></strong>
 

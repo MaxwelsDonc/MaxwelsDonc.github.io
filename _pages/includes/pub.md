@@ -2,6 +2,20 @@
 
 <!-- <strong><span class='show_paper_citations' data='谷歌学术的链接里面找，形式参考现有的'></span></strong> -->
 
+<!-- 文章2024  -->
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"><a href="https://www.springer.com/journal/11219" style="color: white; text-decoration: none;">SQJ 2024</a></div><img src='images/paper/SQJ2024v1.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Evaluating the effectiveness of neuron coverage metrics: a metamorphic-testing approach](https://assets-eu.researchsquare.com/files/rs-4660114/v1_covered_0749422e-5316-429c-a3bb-5f753e5a28ec.pdf?c=1721785350), **Zenghui Zhou**, Pak-Lok Poon, Tsong Yueh Chen, Kun Qiu, Qinghua Zhou, Zheng Zheng.<br> 
+
+[**Project**](https://github.com/MaxwelsDonc) <strong><span class='show_paper_citations' data='mrf-JvkAAAAJ:Tyk-4Ss8FVUC'></span></strong>
+- Empirically studied NC metrics for DNNs without an oracle, finding some had positive but non - robust correlations with fault detection.
+- Created a correlation - invariability analysis framework to assess NC metrics, offering a useful evaluation tool.
+- Blazed a new trail in DNN testing research, bridging the gap in prior oracle - focused NC metric studies.
+</div>
+</div>
+
+
 <!-- 文章一  -->
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge"><a href="https://www.springer.com/journal/11219" style="color: white; text-decoration: none;">SQJ 2020</a></div><img src='images/paper/Cross project bug type prediction based on transfer learning.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
