@@ -1,7 +1,10 @@
-# main links links
+# main links
 main:
   - title: "About Me"
-    url: "/#about-me"
+    url: "/#About-me"
+
+  - title: "Education"
+    url: "/#Education"
 
   - title: "News"
     url: "/#News"
@@ -9,8 +12,14 @@ main:
   - title: "Publications"
     url: "/#Publications"
 
-  - title: "Honors and Awards"
-    url: "/#honors"
+  - title: "Projects"
+    url: "/#Projects"
 
-  - title: "Others"
-    url: "/#others"
+  - title: "Honors"
+    url: "/#Honors"
+
+  - title: "Services"
+    url: "/#Services"
+
+  - title: "Skills"
+    url: "/#Skills"

@@ -6,6 +6,7 @@ services:
       - .:/usr/src/app
     ports:
       - "4000:4000"
+      - "35729:35729"
     environment:
       - JEKYLL_ENV=development
     command: bundle exec jekyll serve --host 0.0.0.0 --livereload --incremental

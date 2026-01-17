@@ -97,13 +97,50 @@ h1:before, .anchor:before {
     margin-top: -$scroll_offset;
 }
 
+/* 1. 基础样式容器 */
 .badge {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    position: absolute;
-    margin-top: .5em;
-    margin-left: -.5em;
-    color: white;
-    background-color: #00369f;
-    font-size: .8em;
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    margin-right: 0.5em;
+    margin-top: 0;
+    margin-left: 0;
+    color: white !important; /* 确保文字始终为白色 */
+    background-color: #00369f; /* 默认蓝色 */
+    font-size: 0.85em;
+    font-weight: bold;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.5;
+    font-family: inherit; /* 让标签字体和正文一致，更专业 */
+}
+
+
+/* 2. Project Tag: Forest Green for research projects and systems */
+.project-tag {
+    @extend .badge;
+    background-color: #2e7d32 !important; 
+}
+
+/* 3. Honor Tag: Elegant Crimson for awards and scholarships */
+.honor-tag {
+    @extend .badge;
+    background-color: #b71c1c !important; /* 更深邃专业的红色 */
+}
+
+/* 4. Service Tag: Deep Royal Purple for academic and community services */
+.service-tag {
+    @extend .badge;
+    background-color: #4527a0 !important; /* 更具学术沉淀感的深紫色 */
+}
+
+/* 5. Intern Tag: Vibrant Amber for professional internships */
+.intern-tag {
+    @extend .badge; /* 继承基础样式 */
+    background-color: #ef6c00 !important; /* 沉稳的深橙色，专业且有活力 */
+}
+
+/* 6. Skill Tag: Deep Teal for technical skills and languages */
+.skill-tag {
+    @extend .badge; /* 继承基础样式 */
+    background-color: #00695c !important; /* 深青色，专业且沉稳 */
 }
