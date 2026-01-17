@@ -1,44 +1,32 @@
 name: Update github myprofile
 
-on:
+on: 
   page_build:
-  workflow_dispatch: # 方便你手动点击测试运行
+  workflow_dispatch: # 添加手动运行按钮
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0 # 获取完整历史，确保 push 顺畅
-
+    - uses: actions/checkout@v3
     - name: Install Reqs
       run: |
         sudo apt-get install -y python3-setuptools
-
-    - name: Run Script and Push
+    - name: Run
       run: |
-        # 1. 执行脚本生成最新的 README
         cd ./github_myprofile_updater
         python3 update.py
         
-        # 2. 配置 Git 身份
+        # 基础配置
+        git init
+        git checkout -b main
         git config --local user.name "${GITHUB_ACTOR}"
         git config --local user.email "zhouzenghui.p@qq.com"
         
-        # 3. 添加更改
-        # 注意：如果 README.md 生成在子目录，请确保路径正确
+        # 修正认证 URL 格式
+        # 注意：这里将变量拼接放在了推送到命令中，避免了 export 时可能出现的解析错误
         git add README.md
+        git commit -m "update my description automatically" || echo "No changes to commit"
         
-        # 4. 提交
-        # 增加判断，防止没有变动时 commit 导致报错
-        if git diff --staged --quiet; then
-          echo "No changes to commit"
-        else
-          git commit -m "docs: update profile automatically"
-          
-          # 5. 推送
-          # 使用 ${{ }} 语法确保 Secret 正确注入 URL
-          git push "https://${GITHUB_ACTOR}:${{ secrets.GHRS_GITHUB_API_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main --force
-        fi
+        # 直接执行推送，确保 Token 正确注入
+        git push "https://${GITHUB_ACTOR}:${{ secrets.GHRS_GITHUB_API_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main --force
