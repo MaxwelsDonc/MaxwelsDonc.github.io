@@ -1,8 +1,8 @@
 name: Update github myprofile
 
-on: 
+on:
   page_build:
-  workflow_dispatch: # 添加手动运行按钮
+  workflow_dispatch:
 
 jobs:
   build:
@@ -11,22 +11,17 @@ jobs:
     - uses: actions/checkout@v3
     - name: Install Reqs
       run: |
-        sudo apt-get install -y python3-setuptools
+        sudo apt-get install python3-setuptools
     - name: Run
       run: |
         cd ./github_myprofile_updater
         python3 update.py
-        
-        # 基础配置
         git init
-        git checkout -b main
         git config --local user.name "${GITHUB_ACTOR}"
         git config --local user.email "zhouzenghui.p@qq.com"
+        export remote_repo="https://${GITHUB_ACTOR}:${{ secrets.GHRS_GITHUB_API_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
         
-        # 修正认证 URL 格式
-        # 注意：这里将变量拼接放在了推送到命令中，避免了 export 时可能出现的解析错误
         git add README.md
-        git commit -m "update my description automatically" || echo "No changes to commit"
-        
-        # 直接执行推送，确保 Token 正确注入
-        git push "https://${GITHUB_ACTOR}:${{ secrets.GHRS_GITHUB_API_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main --force
+
+        git commit -m "update my description automatically"
+        git push "${remote_repo}" HEAD:main --force
