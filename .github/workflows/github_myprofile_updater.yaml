@@ -7,21 +7,40 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # 关键：显式声明写权限
+    permissions:
+      contents: write
+      
     steps:
     - uses: actions/checkout@v3
+      with:
+        # 默认只拉取最近一次 commit，设为 0 可以获取完整历史（可选）
+        fetch-depth: 0
+
     - name: Install Reqs
       run: |
-        sudo apt-get install python3-setuptools
-    - name: Run
+        sudo apt-get install -y python3-setuptools
+
+    - name: Run Update Script
       run: |
         cd ./github_myprofile_updater
         python3 update.py
-        git init
-        git config --local user.name "${GITHUB_ACTOR}"
-        git config --local user.email "zhouzenghui.p@qq.com"
-        export remote_repo="https://${GITHUB_ACTOR}:${{ secrets.GHRS_GITHUB_API_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
-        
-        git add README.md
 
-        git commit -m "update my description automatically"
-        git push "${remote_repo}" HEAD:main --force
+    - name: Commit and Push
+      run: |
+        # 1. 配置 Git 用户信息
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        
+        # 2. 检查是否有文件更改，避免没有更改时 commit 报错
+        git add github_myprofile_updater/README.md
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
+
+        # 3. 提交并推送
+        git commit -m "docs: update my description automatically"
+        
+        # 使用内置的 GITHUB_TOKEN，无需手动创建 secrets
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main --force
