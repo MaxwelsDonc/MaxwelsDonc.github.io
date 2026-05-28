@@ -1,0 +1,25 @@
+---
+import { navigation } from "../config";
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="content-container">
+    <a href="/" class="site-logo">Zhou Zenghui</a>
+    <nav>
+      <ul class="site-nav">
+        {navigation.header.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class={currentPath.startsWith(item.href) ? "active" : ""}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>

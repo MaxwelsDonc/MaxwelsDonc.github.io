@@ -1,0 +1,69 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Giscus from "../components/Giscus.astro";
+
+export interface Props {
+  title: string;
+  date: Date;
+  description?: string;
+  keywords?: string[];
+  relatedPosts?: Array<{
+    id: string;
+    data: { title: string; date: Date; excerpt?: string };
+  }>;
+}
+const { title, date, description, keywords, relatedPosts } = Astro.props;
+const formattedDate = date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="content-container">
+    <article>
+      <header class="article-header">
+        <div class="article-breadcrumb">
+          <a href="/blog">&larr; Blog</a>
+        </div>
+        <h1>{title}</h1>
+        <div class="article-date">Published {formattedDate}</div>
+      </header>
+
+      <div class="article-body">
+        <slot />
+      </div>
+    </article>
+
+    {keywords && keywords.length > 0 && (
+      <nav class="article-keywords" aria-label="Keywords">
+        {keywords.map((kw) => <span class="article-kw-tag">{kw}</span>)}
+      </nav>
+    )}
+
+    {relatedPosts && relatedPosts.length > 0 && (
+      <nav class="article-related" aria-label="Related posts">
+        <h2 class="article-related-heading">Recommended Reading</h2>
+        <ul class="entry-list">
+          {relatedPosts.map((rp) => (
+            <li class="entry-card">
+              <span class="entry-label">
+                {rp.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+              </span>
+              <a href={`/blog/${rp.id.replace(/\.md$/, "")}`} class="entry-title">{rp.data.title}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
+
+    <footer class="article-footer">
+      <a href="/blog" class="article-back">&larr; Back to Blog</a>
+    </footer>
+
+    <div class="article-comments">
+      <Giscus />
+    </div>
+  </div>
+</BaseLayout>

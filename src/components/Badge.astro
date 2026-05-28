@@ -1,0 +1,14 @@
+---
+export interface Props {
+  variant: "project" | "honor" | "service" | "skill";
+}
+const { variant } = Astro.props;
+const classMap = {
+  project: "badge badge-project",
+  honor: "badge badge-honor",
+  service: "badge badge-service",
+  skill: "badge badge-skill",
+};
+---
+
+<span class={classMap[variant]}><slot /></span>

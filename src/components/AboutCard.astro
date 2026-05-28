@@ -1,0 +1,27 @@
+---
+import { author } from "../config";
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import ScholarIcon from "./icons/ScholarIcon.astro";
+import ORCIDIcon from "./icons/ORCIDIcon.astro";
+import ResearchGateIcon from "./icons/ResearchGateIcon.astro";
+import StackOverflowIcon from "./icons/StackOverflowIcon.astro";
+import EmailIcon from "./icons/EmailIcon.astro";
+---
+
+<div class="about-card">
+  <div class="about-card-avatar">
+    <img src={author.avatar} alt={author.name} />
+    <div class="about-card-social">
+      {author.github && <a href={`https://github.com/${author.github}`} title="GitHub"><GitHubIcon /></a>}
+      {author.googleScholar && <a href={author.googleScholar} title="Google Scholar"><ScholarIcon /></a>}
+      {author.orcid && <a href={author.orcid} title="ORCID"><ORCIDIcon /></a>}
+      {author.researchgate && <a href={author.researchgate} title="ResearchGate"><ResearchGateIcon /></a>}
+      {author.stackoverflow && <a href={author.stackoverflow} title="Stack Overflow"><StackOverflowIcon /></a>}
+      {author.email && <a href={`mailto:${author.email}`} title="Email"><EmailIcon /></a>}
+    </div>
+  </div>
+  <div>
+    <h1 style="font-size: var(--text-3xl); font-weight: 700; margin-bottom: 0.25em;">{author.name}</h1>
+    <p style="color: var(--color-text-muted); font-size: var(--text-lg);">{author.bio} &middot; {author.location}</p>
+  </div>
+</div>

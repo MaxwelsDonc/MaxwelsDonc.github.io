@@ -1,7 +1,0 @@
-# About me
-
-I received my B.Eng. degree from the [Shenyuan Honors College of Beihang University](http://sae.buaa.edu.cn/index.htm) (北京航空航天大学沈元荣誉学院). I am currently a Ph.D. candidate in the [School of Automation Science and Electrical Engineering (SASEE), Beihang University](http://dept3.buaa.edu.cn/index.htm) (北京航空航天大学自动化科学与电气工程学院), supervised by [Prof. Zheng Zheng](https://shi.buaa.edu.cn/zhengzheng).
-
-My research interests lie in **Software Engineering** and **Trustworthy AI**, with a particular focus on **Large Language Model (LLM) Testing** and **Quantum Software Engineering (QSE)**. Given the rapid development and widespread application of these technologies, ensuring their reliability and correctness has become increasingly urgent.  To date, I have published several papers, with a cumulative citation count as <img style="vertical-align: middle; height: 1.2em;" alt="citation badge" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2FMaxwelsDonc%2FMaxwelsDonc.github.io%40google-scholar-stats%2Fgs_data_shieldsio.json&query=%24.message&logo=googlescholar&label=citation&labelColor=%23f6f6f6&color=%239cf">.
-
-To foster communication and collaboration, I am working on establishing a research community dedicated to **LLM testing** and **QSE**. If you are interested in these topics or have any ideas to share, please do not hesitate to contact me!

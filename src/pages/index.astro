@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+
+const posts = await getCollection("blog", ({ data }) => !data.draft);
+const latestPosts = posts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
+---
+
+<BaseLayout>
+  <Hero />
+
+  {latestPosts.length > 0 && (
+    <div class="reveal">
+      <Section title="Latest Posts">
+        <ul class="entry-list reveal-stagger">
+          {latestPosts.map((post) => (
+            <li class="entry-card">
+              <span class="entry-label">
+                {post.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+              </span>
+              <span>
+                <a href={`/blog/${post.id.replace(/\.md$/, "")}`} class="entry-title">{post.data.title}</a>
+                {post.data.keywords && post.data.keywords.length > 0 && (
+                  <span class="entry-kw-list">
+                    {post.data.keywords.map((kw: string) => <span class="entry-kw">{kw}</span>)}
+                  </span>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    </div>
+  )}
+</BaseLayout>
