@@ -28,8 +28,10 @@ const scholarUrl = (paperId: string) =>
 // Split intro.md into paragraphs by double-newline
 const introParagraphs = introRaw.trim().split(/\n\n+/);
 
-// Convert **text** to <strong>text</strong>
-const mdBold = (s: string) => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+// Convert Markdown inline to HTML: **bold** and [text](url)
+const mdInline = (s: string) =>
+  s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+   .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 ---
 
 <BaseLayout title="About">
@@ -37,7 +39,7 @@ const mdBold = (s: string) => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     <AboutCard />
 
     <Section title="About Me">
-      {introParagraphs.map(p => <p set:html={mdBold(p.trim())} />)}
+      {introParagraphs.map(p => <p set:html={mdInline(p.trim())} />)}
     </Section>
 
     <Section title="Education">
@@ -95,7 +97,7 @@ const mdBold = (s: string) => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
               <div class="pub-authors">
                 <Badge variant="journal">{paper.venue}</Badge>
                 <CitationCount paperId={paper.paperId} />
-                <span set:html={mdBold(paper.authors)} />
+                <span set:html={mdInline(paper.authors)} />
               </div>
             </div>
           ))}
