@@ -203,7 +203,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
     border: 1px solid rgba(0, 0, 0, 0.08);
   }
   .article-body pre {
-    background: var(--color-code-bg);
+    background: var(--color-code-bg) !important;
     padding: var(--space-md);
     overflow-x: auto;
     font-size: var(--text-sm);
@@ -217,7 +217,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
     font-size: 0.88em;
   }
   .article-body :not(pre) > code {
-    background: var(--color-code-bg);
+    background: var(--color-code-bg) !important;
     padding: 0.15em 0.4em;
     border-radius: 2px;
     color: var(--color-text);
