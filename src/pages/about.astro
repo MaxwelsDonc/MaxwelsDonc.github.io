@@ -28,7 +28,7 @@ const scholarUrl = (paperId: string) =>
 // Split intro.md into paragraphs by double-newline
 const introParagraphs = introRaw.trim().split(/\n\n+/);
 
-// Convert **text** to <strong>text</strong> for author names
+// Convert **text** to <strong>text</strong>
 const mdBold = (s: string) => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 ---
 
@@ -37,7 +37,7 @@ const mdBold = (s: string) => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     <AboutCard />
 
     <Section title="About Me">
-      {introParagraphs.map(p => <p set:html={p.trim()} />)}
+      {introParagraphs.map(p => <p set:html={mdBold(p.trim())} />)}
     </Section>
 
     <Section title="Education">

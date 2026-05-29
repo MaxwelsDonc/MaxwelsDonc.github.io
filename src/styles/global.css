@@ -813,6 +813,9 @@ a.blog-row:hover .blog-row-title {
   background: rgba(217, 119, 6, 0.05);
   border: 1px solid rgba(217, 119, 6, 0.15);
 }
+.badge-citation:empty {
+  display: none;
+}
 
 /* ============================================
    CV page
