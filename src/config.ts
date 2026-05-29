@@ -7,6 +7,7 @@ export const site = {
   description: "PhD Candidate at Beihang University",
   url: "https://zhouzenghui.site",
   lang: "en",
+  /** Google Analytics ID. Remove or set to "" to disable. */
   analyticsId: "G-6VT97KX01G",
 };
 
@@ -33,7 +34,6 @@ export const navigation = {
 export const homePage = {
   greeting: "Hi, I'm Zhou Zenghui",
   subtitle: "Token is Cheap, Attention is Expensive",
-  bio: "Ph.D. Candidate @ Beihang University | Researching LLM Testing & Quantum Software Engineering",
   keywords: ["LLM Testing", "Quantum Software Engineering", "Trustworthy AI"],
 };
 
@@ -66,8 +66,40 @@ export const googleScholar = {
 };
 
 export const giscus = {
+  /** GitHub repo, e.g. "yourname/yourname.github.io" */
   repo: "MaxwelsDonc/MaxwelsDonc.github.io",
+  /** Get these from https://giscus.app — leave empty to disable comments */
   repoId: "",
   category: "Blog Comments",
   categoryId: "",
 };
+
+// ============================================
+// Validation — checked at build time
+// ============================================
+
+function validateConfig() {
+  const errors: string[] = [];
+
+  if (!site.title || site.title === "Your Name")
+    errors.push('site.title is required. Set it in src/config.ts');
+  if (!site.url || site.url.includes("yourname"))
+    errors.push('site.url is required. Set your GitHub Pages URL in src/config.ts');
+
+  if (!author.name || author.name === "Your Name")
+    errors.push('author.name is required. Set it in src/config.ts');
+
+  if (giscus.repoId && !giscus.categoryId)
+    errors.push('giscus: set both repoId AND categoryId, or leave both empty');
+  if (!giscus.repoId && giscus.categoryId)
+    errors.push('giscus: set both repoId AND categoryId, or leave both empty');
+
+  if (errors.length > 0) {
+    console.error("\n❌ Config validation failed:\n");
+    errors.forEach((e) => console.error(`  • ${e}`));
+    console.error("\nFix src/config.ts and try again.\n");
+    process.exit(1);
+  }
+}
+
+validateConfig();

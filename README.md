@@ -208,6 +208,42 @@ Each section follows a consistent dual-column pattern:
 
 ---
 
+## Common Mistakes & Guardrails
+
+### Build-time validation
+
+`src/config.ts` validates these at build time — if you forget to set them, the build fails with a clear error:
+
+- `site.title` cannot be empty or "Your Name"
+- `site.url` must be set (not the placeholder)
+- `author.name` must be set
+- Giscus: set both `repoId` AND `categoryId`, or leave both empty
+
+### Frontmatter validation
+
+Blog post frontmatter is validated by Zod. If you miss a required field or use the wrong type, the build fails with the exact field and expected type.
+
+### About page — do NOT do this
+
+| ❌ Don't | ✅ Do |
+|----------|------|
+| Remove `class="about-page"` from the container | Keep it — it enables serif typography and section styling |
+| Replace `<Section>` with `<div>` | Always use `<Section title="...">` for titled sections |
+| Use `class="cv-item"` for entries | Use `class="cv-row"` (with left label) or `class="pub-item"` (simple list) |
+| Put content directly in `<li class="edu-item">` without a wrapper `<div>` | Wrap right-side content in `<div>` for correct flex layout |
+| Invent new badge variants | Use only: `journal`, `role`, `honor`, `project` |
+| Skip `border-bottom` CSS | The template handles all borders — don't add your own |
+| Add `background`, `border-radius`, or `box-shadow` | These break the editorial design — the template is flat by design |
+
+### If the build fails
+
+1. Read the error message — it tells you exactly what's wrong
+2. Check `src/config.ts` — are all required fields filled?
+3. Check blog frontmatter — are all `title` and `date` fields present?
+4. Run `npm run dev` for faster iteration before building
+
+---
+
 ## Local Development
 
 ```bash

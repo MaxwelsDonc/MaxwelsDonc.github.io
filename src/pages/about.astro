@@ -1,10 +1,88 @@
 ---
+/**
+ * ABOUT PAGE — edit this file to build your CV.
+ *
+ * ═══════════════════════════════════════════════════════════
+ * TEMPLATE GUIDE — keep this comment block for reference
+ * ═══════════════════════════════════════════════════════════
+ *
+ * SETUP:
+ * 1. Replace USER_ID below with your Google Scholar user ID
+ * 2. Change scholarUrl domain if needed (.com → .com.hk, etc.)
+ *
+ * SECTION STRUCTURE:
+ *   <Section title="SECTION NAME">
+ *     ...items...
+ *   </Section>
+ *
+ * ITEM PATTERNS (pick the right one):
+ *
+ * A) Education / Experience (timeline dual-column):
+ *   <ul class="edu-list">
+ *     <li class="edu-item">
+ *       <span class="edu-date">2020 – 2024</span>
+ *       <div>
+ *         <div class="edu-main"><strong>Degree</strong>, School.</div>
+ *         <div class="cv-desc">Description text here.</div>
+ *       </div>
+ *     </li>
+ *   </ul>
+ *
+ * B) Honors / Awards (timeline dual-column with badge):
+ *   <div class="cv-row">
+ *     <span class="cv-label edu-date">2024</span>
+ *     <span class="cv-main"><Badge variant="honor">LEVEL</Badge> Award name.</span>
+ *   </div>
+ *
+ * C) Projects (timeline dual-column with badge + description):
+ *   <div class="cv-row">
+ *     <span class="cv-label edu-date">2020 – 2023</span>
+ *     <div>
+ *       <div class="cv-main"><Badge variant="project">ROLE</Badge> Project title</div>
+ *       <div class="cv-desc">Description.</div>
+ *     </div>
+ *   </div>
+ *
+ * D) Publications (title + badge + authors):
+ *   <div class="pub-item">
+ *     <div class="pub-title"><a href={scholarUrl("PAPER_ID")}>Paper Title</a></div>
+ *     <div class="pub-authors"><Badge variant="journal">VENUE</Badge> <CitationCount paperId="PAPER_ID" /> Authors.</div>
+ *   </div>
+ *
+ * E) Academic Services (simple list, no dual-column):
+ *   <div class="pub-item"><Badge variant="role">ROLE</Badge> Description.</div>
+ *
+ * F) News (timeline, short entries):
+ *   <ul class="news-list">
+ *     <li class="news-item"><span class="news-date">2025.01</span> Event description.</li>
+ *   </ul>
+ *
+ * G) Skills (inline tags):
+ *   <div class="skill-tags">
+ *     <span class="skill-tag">Skill name</span>
+ *   </div>
+ *
+ * BADGE VARIANTS:
+ *   journal  — green micro-capsule (TOSEM, TSE, KBS...)
+ *   role     — blue micro-capsule (PC Member, Reviewer...)
+ *   honor    — amber micro-capsule (City-level, University...)
+ *   project  — purple micro-capsule (Algorithm Lead, Core Researcher...)
+ *
+ * CRITICAL RULES:
+ *   - NEVER remove class="about-page" from the container div below
+ *   - NEVER change <Section> to a plain <div> — it provides the heading
+ *   - ALWAYS use the item patterns above; don't invent new structures
+ *   - Keep Google Scholar paper IDs in the format "USER_ID:XXXXX"
+ * ═══════════════════════════════════════════════════════════
+ */
+
 import BaseLayout from "../layouts/BaseLayout.astro";
 import AboutCard from "../components/AboutCard.astro";
 import Section from "../components/Section.astro";
 import Badge from "../components/Badge.astro";
 import CitationCount from "../components/CitationCount.astro";
 
+// Replace with your Google Scholar user ID
 const USER_ID = "mrf-JvkAAAAJ";
 const scholarUrl = (paperId: string) =>
   `https://scholar.google.com/citations?view_op=view_citation&hl=en&user=${USER_ID}&citation_for_view=${USER_ID}:${paperId}`;
