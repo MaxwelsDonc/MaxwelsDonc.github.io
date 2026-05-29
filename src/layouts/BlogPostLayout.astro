@@ -96,7 +96,34 @@ const formattedDate = date.toLocaleDateString("en-US", {
   })();
 </script>
 
+<script is:inline>
+  // Image lightbox
+  document.addEventListener("click", function(e) {
+    var img = e.target.closest(".article-body img");
+    if (!img) return;
+    var overlay = document.createElement("div");
+    overlay.className = "img-lightbox";
+    overlay.innerHTML = '<img src="' + img.src + '" alt="' + (img.alt || "") + '" />';
+    document.body.appendChild(overlay);
+    overlay.addEventListener("click", function() { overlay.remove(); });
+    document.addEventListener("keydown", function esc(e) {
+      if (e.key === "Escape") { overlay.remove(); document.removeEventListener("keydown", esc); }
+    });
+  });
+</script>
+
 <style is:global>
+  .img-lightbox {
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,0.85);
+    display: flex; align-items: center; justify-content: center;
+    cursor: zoom-out;
+  }
+  .img-lightbox img {
+    max-width: 90vw; max-height: 90vh;
+    border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  }
+
   /* Article header — top black banner */
   .article-header {
     padding: var(--space-xl) 0 var(--space-lg);
