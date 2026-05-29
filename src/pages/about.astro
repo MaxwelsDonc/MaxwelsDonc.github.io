@@ -125,13 +125,12 @@ const mdBold = (s: string) => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     <Section title="Honors and Awards">
       {honors.sections.map((section: any) => (
         <>
-          <p class="cv-subheading" {section.heading} />
+          <p class="cv-subheading">{section.heading}</p>
           {section.items.map((item: any) => (
             <div class="cv-row">
               <span class="cv-label edu-date">{item.date}</span>
               <span class="cv-main">
-                <Badge variant="honor">{item.level}</Badge>
-                <span {item.text} />
+                <Badge variant="honor">{item.level}</Badge> {item.text}
               </span>
             </div>
           ))}
@@ -142,10 +141,10 @@ const mdBold = (s: string) => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     <Section title="Academic Services">
       {services.sections.map((section: any) => (
         <>
-          <p class="cv-subheading" {section.heading} />
+          <p class="cv-subheading">{section.heading}</p>
           {section.items.map((item: any) => (
             <div class="pub-item">
-              <Badge variant="role">{item.role}</Badge> <span {item.text} />
+              <Badge variant="role">{item.role}</Badge> {item.text}
             </div>
           ))}
         </>
