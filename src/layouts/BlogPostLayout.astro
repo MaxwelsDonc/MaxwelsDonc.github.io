@@ -73,8 +73,8 @@ const formattedDate = date.toLocaleDateString("en-US", {
   </div>
 </BaseLayout>
 
-<script is:inline src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-<script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script is:inline>
   mermaid.initialize({ startOnLoad: false, theme: "neutral" });
   window.addEventListener("load", async () => {
     const blocks = document.querySelectorAll(".language-mermaid");
