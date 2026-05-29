@@ -100,7 +100,7 @@ Each file in `src/data/` corresponds to a section on the About page. Open them, 
 
 **Step 4: Write a blog post (optional)**
 
-```markdown
+````markdown
 ---
 title: "My First Paper Accepted"
 date: 2026-06-01
@@ -118,7 +118,7 @@ graph TD
     B -->|Accept| C[Publish]
     B -->|Reject| D[Revise]
 ```
-```
+````
 
 Math is rendered with KaTeX — `$E = mc^2$` for inline, `$$...$$` for display equations. Diagrams use Mermaid with ` ```mermaid ` code blocks. Both render client-side, no server required.
 

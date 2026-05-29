@@ -73,18 +73,22 @@ const formattedDate = date.toLocaleDateString("en-US", {
   </div>
 </BaseLayout>
 
-<script type="module">
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
   mermaid.initialize({ startOnLoad: false, theme: "neutral" });
-  (async () => {
+  window.addEventListener("load", async () => {
     const blocks = document.querySelectorAll(".language-mermaid");
     for (const el of blocks) {
       const pre = el.closest("pre");
       if (!pre) continue;
-      const { svg } = await mermaid.render("m-" + Math.random().toString(36).slice(2), el.textContent || "");
-      pre.outerHTML = `<figure class="mermaid-diagram">${svg}</figure>`;
+      try {
+        const { svg } = await mermaid.render("m-" + Math.random().toString(36).slice(2), el.textContent || "");
+        pre.outerHTML = `<figure class="mermaid-diagram">${svg}</figure>`;
+      } catch (e) {
+        console.warn("Mermaid render failed:", e);
+      }
     }
-  })();
+  });
 </script>
 
 <style is:global>
