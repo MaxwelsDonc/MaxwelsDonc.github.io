@@ -1,47 +1,61 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import BlogCard from "../../components/BlogCard.astro";
 import { blogPage } from "../../config";
 
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 const sorted = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const featured = sorted.find((p) => p.data.featured);
 const rest = sorted.filter((p) => !p.data.featured);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+function formatDateUpper(date: Date) {
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }).toUpperCase();
+}
 ---
 
 <BaseLayout title="Blog" description={blogPage.subtitle}>
-  <div class="blog-hero content-container">
-    <h1>{blogPage.title}</h1>
-    <p>{blogPage.subtitle}</p>
-  </div>
+  <div class="blog-page">
 
-  <div class="blog-feed">
     {featured && (
-      <BlogCard
-        variant="featured"
-        title={featured.data.title}
-        excerpt={featured.data.excerpt}
-        href={`/blog/${featured.id.replace(/\.md$/, "")}`}
-      />
+      <div class="blog-featured">
+        <div class="blog-featured-meta">{formatDateUpper(featured.data.date)}</div>
+        <a href={`/blog/${featured.id.replace(/\.md$/, "")}`}>
+          <h2>{featured.data.title}</h2>
+          {featured.data.excerpt && <p>{featured.data.excerpt}</p>}
+        </a>
+      </div>
     )}
 
-    {rest.map((post) => (
-      <BlogCard
-        title={post.data.title}
-        date={post.data.date}
-        href={`/blog/${post.id.replace(/\.md$/, "")}`}
-      />
-    ))}
+    {rest.length > 0 && (
+      <>
+        <h3 class="blog-recent-heading">Recent Posts</h3>
+        <ul class="blog-recent-list">
+          {rest.map((post) => (
+            <li>
+              <a href={`/blog/${post.id.replace(/\.md$/, "")}`} class="blog-row">
+                <span class="blog-row-date">{formatDate(post.data.date)}</span>
+                <span>
+                  <div class="blog-row-title">{post.data.title}</div>
+                  {post.data.keywords && post.data.keywords.length > 0 && (
+                    <div class="blog-row-keywords">
+                      {post.data.keywords.map((kw: string) => <span class="blog-row-kw">{kw}</span>)}
+                    </div>
+                  )}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
 
     {sorted.length === 0 && (
       <p style="color: var(--color-text-muted); text-align: center; padding: 3rem 0;">
         No posts yet. Check back soon.
       </p>
     )}
-  </div>
-
-  <div class="blog-cta content-container">
-    <p>Subscribe via <a href="/rss.xml">RSS</a> to get notified of new posts.</p>
   </div>
 </BaseLayout>

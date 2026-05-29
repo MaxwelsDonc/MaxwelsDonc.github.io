@@ -4,148 +4,257 @@ import AboutCard from "../components/AboutCard.astro";
 import Section from "../components/Section.astro";
 import Badge from "../components/Badge.astro";
 import CitationCount from "../components/CitationCount.astro";
+
+const USER_ID = "mrf-JvkAAAAJ";
+const scholarUrl = (paperId: string) =>
+  `https://scholar.google.com/citations?view_op=view_citation&hl=en&user=${USER_ID}&citation_for_view=${USER_ID}:${paperId}`;
 ---
 
 <BaseLayout title="About">
-  <div class="content-container" style="padding-top: 3rem;">
+  <div class="content-container about-page" style="padding-top: var(--space-lg)">
     <AboutCard />
-  </div>
 
-  <Section title="About Me">
+    <Section title="About Me">
       <p>
         I received my B.Eng. degree from the <a href="http://sae.buaa.edu.cn/index.htm">Shenyuan Honors College of Beihang University</a> (北京航空航天大学沈元荣誉学院). I am currently a Ph.D. candidate in the <a href="http://dept3.buaa.edu.cn/index.htm">School of Automation Science and Electrical Engineering (SASEE), Beihang University</a> (北京航空航天大学自动化科学与电气工程学院), supervised by <a href="https://shi.buaa.edu.cn/zhengzheng">Prof. Zheng Zheng</a>.
       </p>
       <p>
-        My research interests lie in <strong>Software Engineering</strong> and <strong>Trustworthy AI</strong>, with a particular focus on <strong>Large Language Model (LLM) Testing</strong> and <strong>Quantum Software Engineering (QSE)</strong>. Given the rapid development and widespread application of these technologies, ensuring their reliability and correctness has become increasingly urgent.
+        My research interests lie in <strong>Software Engineering</strong> and <strong>Trustworthy AI</strong>, with a particular focus on <strong>LLM Testing</strong> and <strong>Quantum Software Engineering (QSE)</strong>.
       </p>
       <p>
-        To foster communication and collaboration, I am working on establishing a research community dedicated to <strong>LLM testing</strong> and <strong>QSE</strong>. If you are interested in these topics or have any ideas to share, please do not hesitate to contact me!
+        To foster communication and collaboration, I am working on establishing a research community dedicated to LLM testing and QSE. If you are interested in these topics or have any ideas to share, please do not hesitate to contact me!
       </p>
     </Section>
 
     <Section title="Education">
-      <p><strong>2020.09 – Present</strong>: Ph.D. Candidate, School of Automation Science and Electrical Engineering (SASEE), <strong>Beihang University</strong>.</p>
-      <p style="margin-left: 1.25rem; font-size: var(--text-sm); color: var(--color-text-muted);">
-        Admitted to the <strong>Successive Master-Doctoral Program</strong> due to academic distinction. Research supervised by <a href="https://shi.buaa.edu.cn/zhengzheng">Prof. Zheng Zheng</a> and conducted in close collaboration with <a href="https://experts.swinburne.edu.au/404-tsong-chen">Prof. Tsong Yueh Chen</a> (Swinburne University, <strong>IEEE Fellow</strong>).
-      </p>
-      <p style="margin-top: 0.75rem;"><strong>2015.09 – 2019.06</strong>: B.Eng., Shenyuan Honors College, <strong>Beihang University</strong>.</p>
-      <p style="margin-left: 1.25rem; font-size: var(--text-sm); color: var(--color-text-muted);">
-        Shenyuan Honors College is an elite institute dedicated to the top students at Beihang University. Waived from the National Graduate Entrance Examination (Research Recommendation).
-      </p>
+      <ul class="edu-list">
+        <li class="edu-item">
+          <span class="edu-date">2020.09 – Present</span>
+          <div>
+            <div class="edu-main"><strong>Ph.D. Candidate</strong>, School of Automation Science and Electrical Engineering (SASEE), Beihang University.</div>
+            <div class="cv-desc">
+              Admitted to the Successive Master-Doctoral Program due to academic distinction. Supervised by <a href="https://shi.buaa.edu.cn/zhengzheng">Prof. Zheng Zheng</a>, in collaboration with <a href="https://experts.swinburne.edu.au/404-tsong-chen">Prof. Tsong Yueh Chen</a> (Swinburne University, IEEE Fellow).
+            </div>
+          </div>
+        </li>
+        <li class="edu-item">
+          <span class="edu-date">2015.09 – 2019.06</span>
+          <div>
+            <div class="edu-main"><strong>B.Eng.</strong>, Shenyuan Honors College, Beihang University.</div>
+            <div class="cv-desc">
+              Shenyuan Honors College is an elite institute dedicated to the top students at Beihang University. Waived from the National Graduate Entrance Examination (Research Recommendation).
+            </div>
+          </div>
+        </li>
+      </ul>
+    </Section>
+
+    <Section title="Experience">
+      <ul class="edu-list">
+        <li class="edu-item">
+          <span class="edu-date">2026.04 – Present</span>
+          <div>
+            <div class="edu-main"><strong>Mobile OS Intern</strong>, ByteDance (字节跳动).</div>
+            <div class="cv-desc">
+              Leading AI-driven test case generation from PRD documents. Built <strong>SenWorld</strong>, a persona-agent-based digital twin framework for high-fidelity downstream test data. Co-developing <strong>SmartTest Agent</strong> for autonomous test failure diagnosis and auto-fix.
+            </div>
+          </div>
+        </li>
+      </ul>
     </Section>
 
     <Section title="News">
-      <ul style="list-style: none;">
-        <li style="margin-bottom: 0.6em;">&#8226; <strong>2025.12</strong>: Honored as the <strong>Merit Student of Beijing</strong> (City-level Honor).</li>
-        <li style="margin-bottom: 0.6em;">&#8226; <strong>2025.11</strong>: Open-sourced a <strong>Response Letter LaTeX Template</strong> on <a href="https://github.com/MaxwelsDonc/responseLetterLatexTemplate">GitHub</a>.</li>
-        <li style="margin-bottom: 0.6em;">&#8226; <strong>2025.01</strong>: Invited to serve as a <strong>Program Committee (PC) Member</strong> for the <a href="https://sites.google.com/view/aisq-2025/home">AISQ 2025</a> workshop (co-located with <strong>IEEE ISSRE</strong>).</li>
+      <ul class="news-list">
+        <li class="news-item"><span class="news-date">2025.12</span> Honored as the Merit Student of Beijing (City-level Honor).</li>
+        <li class="news-item"><span class="news-date">2025.11</span> Open-sourced a Response Letter LaTeX Template on <a href="https://github.com/MaxwelsDonc/responseLetterLatexTemplate">GitHub</a>.</li>
+        <li class="news-item"><span class="news-date">2025.01</span> Invited to serve as a PC Member for the <a href="https://sites.google.com/view/aisq-2025/home">AISQ 2025</a> workshop (co-located with IEEE ISSRE).</li>
       </ul>
     </Section>
 
     <Section title="Publications">
-      <h3 style="font-size: var(--text-lg); margin-bottom: 0.75em;">Manuscripts Under Review</h3>
-      <ul style="list-style: none;">
-        <li style="margin-bottom: 0.6em;">
-          &#8226; <strong>[TOSEM]</strong> Code comments for quantum software development kits: An empirical study on Qiskit.
-          <CitationCount paperId="mrf-JvkAAAAJ:Y0pCki6q_DkC" />
-        </li>
-        <li style="margin-bottom: 0.6em;">
-          &#8226; <strong>[TSE]</strong> PSALM: Applying proportional sampling strategy in metamorphic testing.
-          <CitationCount paperId="mrf-JvkAAAAJ:W7OEmFMy1HYC" />
-        </li>
-      </ul>
+      <p class="cv-subheading">Manuscripts Under Review</p>
+      <div class="pub-item">
+        <div class="pub-title"><a href={scholarUrl("mrf-JvkAAAAJ:Y0pCki6q_DkC")}>Code comments for quantum software development kits: An empirical study on Qiskit</a></div>
+        <div class="pub-authors"><Badge variant="journal">TOSEM</Badge> <CitationCount paperId="mrf-JvkAAAAJ:Y0pCki6q_DkC" /> <strong>Zenghui Zhou</strong>, Y. Li, Y. Cai, J. Wen, X. Yu, Z. Zheng, B. Yin.</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title"><a href={scholarUrl("mrf-JvkAAAAJ:W7OEmFMy1HYC")}>PSALM: Applying proportional sampling strategy in metamorphic testing</a></div>
+        <div class="pub-authors"><Badge variant="journal">TSE</Badge> <CitationCount paperId="mrf-JvkAAAAJ:W7OEmFMy1HYC" /> <strong>Zenghui Zhou</strong>, P.-L. Poon, Z. Zheng, X.-Y. Zhang.</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title"><a href={scholarUrl("mrf-JvkAAAAJ:YsMSGLbcyi4C")}>Bidirectional empowerment of metamorphic testing and large language models: A systematic survey</a></div>
+        <div class="pub-authors"><Badge variant="journal">CSUR</Badge> <CitationCount paperId="mrf-JvkAAAAJ:YsMSGLbcyi4C" /> Zheng Zheng, <strong>Zenghui Zhou</strong>, Y. Xu, D. Ren, T.Y. Chen.</div>
+      </div>
 
-      <h3 style="font-size: var(--text-lg); margin-top: 1.5em; margin-bottom: 0.75em;">Selected Publications</h3>
-      <ul style="list-style: none;">
-        <li style="margin-bottom: 0.5em;">&#8226; <strong>[SQJ 2025]</strong> Evaluating the effectiveness of neuron coverage metrics: a metamorphic-testing approach. <CitationCount paperId="mrf-JvkAAAAJ:Tyk-4Ss8FVUC" /></li>
-        <li style="margin-bottom: 0.5em;">&#8226; <strong>[ESA 2024]</strong> Is word order considered by foundation models? A comparative task-oriented analysis. <CitationCount paperId="mrf-JvkAAAAJ:qjMakFHDy7sC" /></li>
-        <li style="margin-bottom: 0.5em;">&#8226; <strong>[KBS 2023]</strong> TraceNet: Tracing and locating the key elements in sentiment analysis. <CitationCount paperId="mrf-JvkAAAAJ:2osOgNQ5qMEC" /></li>
-        <li style="margin-bottom: 0.5em;">&#8226; <strong>[TR 2022]</strong> DEEPSIM: Deep Semantic Information-Based Automatic Mandelbug Classification. <CitationCount paperId="mrf-JvkAAAAJ:u5HHmVD_uO8C" /></li>
-        <li style="margin-bottom: 0.5em;">&#8226; <strong>[MET 2021]</strong> Follow-up Test Cases are Better Than Source Test Cases in Metamorphic Testing. <CitationCount paperId="mrf-JvkAAAAJ:9yKSN-GCB0IC" /></li>
-        <li style="margin-bottom: 0.5em;">&#8226; <strong>[SQJ 2020]</strong> Cross-project bug type prediction based on transfer learning. <CitationCount paperId="mrf-JvkAAAAJ:u-x6o8ySG0sC" /></li>
-      </ul>
+      <p class="cv-subheading">Selected Publications</p>
+      <div class="pub-item">
+        <div class="pub-title"><a href={scholarUrl("mrf-JvkAAAAJ:eQOLeE2rZwMC")}>LGMT: Logic-grounded metamorphic testing for evaluating the reasoning reliability of LLMs</a></div>
+        <div class="pub-authors"><Badge variant="journal">KBS 2026</Badge> <CitationCount paperId="mrf-JvkAAAAJ:eQOLeE2rZwMC" /> <strong>Zenghui Zhou</strong>, M. Li, X. Fang, X. Zhou, W. Li, Z. Zheng.</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title"><a href={scholarUrl("mrf-JvkAAAAJ:Tyk-4Ss8FVUC")}>Evaluating the effectiveness of neuron coverage metrics: a metamorphic-testing approach</a></div>
+        <div class="pub-authors"><Badge variant="journal">SQJ 2025</Badge> <CitationCount paperId="mrf-JvkAAAAJ:Tyk-4Ss8FVUC" /> <strong>Zenghui Zhou</strong>, Pak-Lok Poon, Tsong Yueh Chen, Kun Qiu, Qinghua Zhou, Zheng Zheng.</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title"><a href={scholarUrl("mrf-JvkAAAAJ:qjMakFHDy7sC")}>Is word order considered by foundation models? A comparative task-oriented analysis</a></div>
+        <div class="pub-authors"><Badge variant="journal">ESA 2024</Badge> <CitationCount paperId="mrf-JvkAAAAJ:qjMakFHDy7sC" /> Qinghua Zhao, Jiaang Li, Junfeng Liu, Zhongfeng Kang, <strong>Zenghui Zhou</strong>.</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title"><a href={scholarUrl("mrf-JvkAAAAJ:2osOgNQ5qMEC")}>TraceNet: Tracing and locating the key elements in sentiment analysis</a></div>
+        <div class="pub-authors"><Badge variant="journal">KBS 2023</Badge> <CitationCount paperId="mrf-JvkAAAAJ:2osOgNQ5qMEC" /> Qinghua Zhao, Junfeng Liu, Zhongfeng Kang, <strong>Zenghui Zhou</strong>.</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title"><a href={scholarUrl("mrf-JvkAAAAJ:u5HHmVD_uO8C")}>DEEPSIM: Deep Semantic Information-Based Automatic Mandelbug Classification</a></div>
+        <div class="pub-authors"><Badge variant="journal">TR 2022</Badge> <CitationCount paperId="mrf-JvkAAAAJ:u5HHmVD_uO8C" /> Xiaoting Du, Zheng Zheng, Guanping Xiao, <strong>Zenghui Zhou</strong>, Kishor S. Trivedi.</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title"><a href={scholarUrl("mrf-JvkAAAAJ:9yKSN-GCB0IC")}>Follow-up Test Cases are Better Than Source Test Cases in Metamorphic Testing: A Preliminary Study</a></div>
+        <div class="pub-authors"><Badge variant="journal">MET 2021</Badge> <CitationCount paperId="mrf-JvkAAAAJ:9yKSN-GCB0IC" /> <strong>Zenghui Zhou</strong>, Zheng Zheng, Tsong Yueh Chen, Jinyi Zhou, Kun Qiu.</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title"><a href={scholarUrl("mrf-JvkAAAAJ:u-x6o8ySG0sC")}>Cross-project bug type prediction based on transfer learning</a></div>
+        <div class="pub-authors"><Badge variant="journal">SQJ 2020</Badge> <CitationCount paperId="mrf-JvkAAAAJ:u-x6o8ySG0sC" /> Xiaoting Du, <strong>Zenghui Zhou</strong>, Beibei Yin, Guanping Xiao.</div>
+      </div>
     </Section>
 
     <Section title="Research Projects">
-      <ul style="list-style: none;">
-        <li style="margin-bottom: 1em;">
-          <Badge variant="project">Algorithm Lead</Badge> <strong>Automated Test Generation for Safety-Critical Embedded Software</strong> (2020 – 2023)
-          <p style="margin-left: 1.25rem; font-size: var(--text-sm); color: var(--color-text-muted); margin-top: 0.25em;">
-            Utilized <strong>State Charts</strong> to model intricate system behaviors and developed <strong>Search-based Algorithms</strong> to automatically identify test paths and generate test cases.
-          </p>
-        </li>
-        <li style="margin-bottom: 1em;">
-          <Badge variant="project">Core Researcher</Badge> <strong>Reliability Simulation Platform for Distributed Network Systems</strong> (2021 – 2023)
-          <p style="margin-left: 1.25rem; font-size: var(--text-sm); color: var(--color-text-muted); margin-top: 0.25em;">
-            Developed a comprehensive simulation platform applying <strong>Markov Chains</strong> to model system states for real-time reliability prediction.
-          </p>
-        </li>
-        <li style="margin-bottom: 1em;">
-          <Badge variant="project">Core Researcher</Badge> <strong>Automated Testing for Deep Learning Object Detection Systems</strong> (2019 – 2022)
-          <p style="margin-left: 1.25rem; font-size: var(--text-sm); color: var(--color-text-muted); margin-top: 0.25em;">
-            Built an automated testing framework for <strong>YOLO</strong> using <strong>Metamorphic Testing</strong> with custom image transformation operators.
-          </p>
-        </li>
-        <li style="margin-bottom: 1em;">
-          <Badge variant="project">Open Source</Badge> <strong><a href="https://github.com/MaxwelsDonc/responseLetterLatexTemplate">Response Letter LaTeX Template</a></strong> (2024 – Present)
-          <p style="margin-left: 1.25rem; font-size: var(--text-sm); color: var(--color-text-muted); margin-top: 0.25em;">
-            A structured <strong>LaTeX Template</strong> for drafting response letters during peer-review with professional, aesthetic formatting.
-          </p>
-        </li>
-      </ul>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2020 – 2023</span>
+        <div>
+          <div class="cv-main"><Badge variant="project">Algorithm Lead</Badge> Automated Test Generation for Safety-Critical Embedded Software</div>
+          <div class="cv-desc">Utilized State Charts to model intricate system behaviors and developed Search-based Algorithms to automatically identify test paths and generate test cases.</div>
+        </div>
+      </div>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2021 – 2023</span>
+        <div>
+          <div class="cv-main"><Badge variant="project">Core Researcher</Badge> Reliability Simulation Platform for Distributed Network Systems</div>
+          <div class="cv-desc">Developed a comprehensive simulation platform applying Markov Chains to model system states for real-time reliability prediction.</div>
+        </div>
+      </div>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2019 – 2022</span>
+        <div>
+          <div class="cv-main"><Badge variant="project">Core Researcher</Badge> Automated Testing for Deep Learning Object Detection Systems</div>
+          <div class="cv-desc">Built an automated testing framework for YOLO using Metamorphic Testing with custom image transformation operators.</div>
+        </div>
+      </div>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2024 – Present</span>
+        <div>
+          <div class="cv-main"><Badge variant="project">Open Source</Badge> <a href="https://github.com/MaxwelsDonc/responseLetterLatexTemplate">Response Letter LaTeX Template</a></div>
+          <div class="cv-desc">A structured LaTeX Template for drafting response letters during peer-review with professional, aesthetic formatting.</div>
+        </div>
+      </div>
     </Section>
 
     <Section title="Honors and Awards">
-      <h3 style="font-size: var(--text-lg); margin-bottom: 0.75em;">Academic Honors &amp; Titles</h3>
-      <ul style="list-style: none;">
-        <li style="margin-bottom: 0.5em;"><Badge variant="honor">City-level</Badge> <strong>Merit Student of Beijing</strong> (北京市三好学生), 2025.</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="honor">University</Badge> <strong>Outstanding Graduate Student / Excellent Graduate</strong>, Beihang University, 2019, 2022.</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="honor">School</Badge> <strong>School Merit Student</strong>, SASEE, Beihang University, 2021.</li>
-      </ul>
+      <p class="cv-subheading">Academic Honors &amp; Titles</p>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2025</span>
+        <span class="cv-main"><Badge variant="honor">City-level</Badge> Merit Student of Beijing (北京市三好学生).</span>
+      </div>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2019, 2022</span>
+        <span class="cv-main"><Badge variant="honor">University</Badge> Outstanding Graduate Student / Excellent Graduate, Beihang University.</span>
+      </div>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2021</span>
+        <span class="cv-main"><Badge variant="honor">School</Badge> School Merit Student, SASEE, Beihang University.</span>
+      </div>
 
-      <h3 style="font-size: var(--text-lg); margin-top: 1.5em; margin-bottom: 0.75em;">Scholarships &amp; Competitions</h3>
-      <ul style="list-style: none;">
-        <li style="margin-bottom: 0.5em;"><Badge variant="honor">University</Badge> <strong>First Prize, Academic Excellence Scholarship</strong>, Beihang University, 2019, 2020.</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="honor">University</Badge> <strong>First Prize, Scholarship for Academic Competitions</strong>, Beihang University, 2017.</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="honor">Competition</Badge> <strong>Honorable Mention</strong>, Mathematical Contest in Modeling (MCM/ICM), 2017.</li>
-      </ul>
+      <p class="cv-subheading">Scholarships &amp; Competitions</p>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2019, 2020</span>
+        <span class="cv-main"><Badge variant="honor">University</Badge> First Prize, Academic Excellence Scholarship, Beihang University.</span>
+      </div>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2017</span>
+        <span class="cv-main"><Badge variant="honor">University</Badge> First Prize, Scholarship for Academic Competitions, Beihang University.</span>
+      </div>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2017</span>
+        <span class="cv-main"><Badge variant="honor">Competition</Badge> Honorable Mention, Mathematical Contest in Modeling (MCM/ICM).</span>
+      </div>
 
-      <h3 style="font-size: var(--text-lg); margin-top: 1.5em; margin-bottom: 0.75em;">Leadership &amp; Service Awards</h3>
-      <ul style="list-style: none;">
-        <li style="margin-bottom: 0.5em;"><Badge variant="honor">University</Badge> <strong>Outstanding Student Leader</strong>, Beihang University, 2017, 2022, 2023.</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="honor">University</Badge> <strong>Outstanding Member of the Communist Youth League</strong>, Beihang University, 2022.</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="honor">Service</Badge> <strong>Outstanding Academic Counselor Award</strong>, Beihang University, 2022, 2023.</li>
-      </ul>
+      <p class="cv-subheading">Leadership &amp; Service Awards</p>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2017, 2022, 2023</span>
+        <span class="cv-main"><Badge variant="honor">University</Badge> Outstanding Student Leader, Beihang University.</span>
+      </div>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2022</span>
+        <span class="cv-main"><Badge variant="honor">University</Badge> Outstanding Member of the Communist Youth League, Beihang University.</span>
+      </div>
+      <div class="cv-row">
+        <span class="cv-label edu-date">2022, 2023</span>
+        <span class="cv-main"><Badge variant="honor">Service</Badge> Outstanding Academic Counselor Award, Beihang University.</span>
+      </div>
     </Section>
 
     <Section title="Academic Services">
-      <h3 style="font-size: var(--text-lg); margin-bottom: 0.75em;">Conference &amp; Workshop Service</h3>
-      <ul style="list-style: none;">
-        <li style="margin-bottom: 0.5em;"><Badge variant="service">PC Member</Badge> <strong>AISQ 2025</strong> (The 2nd International Workshop on Advanced Intelligent Software Applications, co-located with <strong>IEEE ISSRE 2025</strong>).</li>
-      </ul>
+      <p class="cv-subheading">Conference &amp; Workshop Service</p>
+      <div class="pub-item">
+        <Badge variant="role">PC Member</Badge> AISQ 2025 (The 2nd International Workshop on Advanced Intelligent Software Applications).
+      </div>
 
-      <h3 style="font-size: var(--text-lg); margin-top: 1.5em; margin-bottom: 0.75em;">Journal Reviewer</h3>
-      <ul style="list-style: none;">
-        <li style="margin-bottom: 0.5em;"><Badge variant="service">Reviewer</Badge> <strong>Artificial Intelligence Review</strong> (Springer)</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="service">Reviewer</Badge> <strong>Expert Systems with Applications</strong> (Elsevier)</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="service">Reviewer</Badge> <strong>Scientific Reports</strong> (Nature Portfolio)</li>
-      </ul>
+      <p class="cv-subheading">Journal Reviewer</p>
+      <div class="pub-item">
+        <Badge variant="role">Reviewer</Badge> Artificial Intelligence Review (Springer)
+      </div>
+      <div class="pub-item">
+        <Badge variant="role">Reviewer</Badge> Expert Systems with Applications (Elsevier)
+      </div>
+      <div class="pub-item">
+        <Badge variant="role">Reviewer</Badge> Scientific Reports (Nature Portfolio)
+      </div>
 
-      <h3 style="font-size: var(--text-lg); margin-top: 1.5em; margin-bottom: 0.75em;">Leadership &amp; Community Service</h3>
-      <ul style="list-style: none;">
-        <li style="margin-bottom: 0.5em;"><Badge variant="service">Leadership</Badge> <strong>President of Beihang Toastmasters Club</strong> (2022 – 2023).</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="service">Leadership</Badge> <strong>Director of Academic Support Center</strong>, SASEE, Beihang University (2021 – 2024).</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="service">Mentorship</Badge> <strong>Academic Counselor</strong>, SASEE, BUAA (2021 – 2024).</li>
-      </ul>
+      <p class="cv-subheading">Leadership &amp; Community Service</p>
+      <div class="pub-item">
+        <Badge variant="role">Leadership</Badge> President of Beihang Toastmasters Club (2022 – 2023).
+      </div>
+      <div class="pub-item">
+        <Badge variant="role">Leadership</Badge> Director of Academic Support Center, SASEE, Beihang University (2021 – 2024).
+      </div>
+      <div class="pub-item">
+        <Badge variant="role">Mentorship</Badge> Academic Counselor, SASEE, BUAA (2021 – 2024).
+      </div>
     </Section>
 
     <Section title="Skills">
-      <ul style="list-style: none;">
-        <li style="margin-bottom: 0.5em;"><Badge variant="skill">Programming</Badge> <strong>Python</strong> (PyTorch, TensorFlow), <strong>C/C++</strong>, <strong>MATLAB</strong>.</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="skill">Testing</Badge> <strong>Metamorphic Testing</strong>, <strong>Automated Test Generation</strong>, <strong>LLM Evaluation</strong>.</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="skill">DevOps</Badge> <strong>Docker</strong>, <strong>Linux/Shell</strong>, <strong>Git</strong>, <strong>LaTeX</strong>.</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="skill">Chinese</Badge> <strong>Native</strong>.</li>
-        <li style="margin-bottom: 0.5em;"><Badge variant="skill">English</Badge> <strong>CET-6, Professional working proficiency</strong>.</li>
-      </ul>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">PyTorch</span>
+        <span class="skill-tag">TensorFlow</span>
+        <span class="skill-tag">C/C++</span>
+        <span class="skill-tag">MATLAB</span>
+        <span class="skill-tag">Metamorphic Testing</span>
+        <span class="skill-tag">Automated Test Generation</span>
+        <span class="skill-tag">LLM Evaluation</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">Linux/Shell</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">LaTeX</span>
+      </div>
     </Section>
+  </div>
 </BaseLayout>
+
+<script>
+  (function () {
+    const STATS_URL = document.querySelector('[data-stats-url]')?.getAttribute('data-stats-url');
+    if (!STATS_URL) return;
+
+    fetch(STATS_URL)
+      .then((r) => r.json())
+      .then((data) => {
+        document.querySelectorAll('[data-paper-id]').forEach((el) => {
+          const paperId = el.getAttribute('data-paper-id');
+          if (paperId && data.publications && data.publications[paperId]) {
+            el.textContent = `Citations: ${data.publications[paperId].num_citations}`;
+          }
+        });
+      })
+      .catch(() => {});
+  })();
+</script>

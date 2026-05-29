@@ -9,30 +9,9 @@ const { paperId } = Astro.props;
 
 {googleScholar.enabled && (
   <span
-    class="citation-count"
+    class="badge badge-citation"
     data-paper-id={paperId}
     data-stats-url={googleScholar.statsUrl}
   >
   </span>
 )}
-
-<script>
-  (function () {
-    const STATS_URL = document.querySelector('.citation-count')?.getAttribute('data-stats-url');
-    if (!STATS_URL) return;
-
-    fetch(STATS_URL)
-      .then((r) => r.json())
-      .then((data) => {
-        document.querySelectorAll('.citation-count').forEach((el) => {
-          const paperId = el.getAttribute('data-paper-id');
-          if (paperId && data.publications && data.publications[paperId]) {
-            el.textContent = ` | Citations: ${data.publications[paperId].num_citations}`;
-          }
-        });
-      })
-      .catch(() => {
-        // Silently fail — citation counts are non-critical.
-      });
-  })();
-</script>

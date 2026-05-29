@@ -1,14 +1,8 @@
 ---
 export interface Props {
-  variant: "project" | "honor" | "service" | "skill";
+  variant?: "journal" | "role" | "honor" | "project";
 }
 const { variant } = Astro.props;
-const classMap = {
-  project: "badge badge-project",
-  honor: "badge badge-honor",
-  service: "badge badge-service",
-  skill: "badge badge-skill",
-};
 ---
 
-<span class={classMap[variant]}><slot /></span>
+<span class={`badge${variant ? ` badge-${variant}` : ""}`}><slot /></span>

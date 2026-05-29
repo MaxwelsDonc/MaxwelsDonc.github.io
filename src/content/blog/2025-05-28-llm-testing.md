@@ -4,7 +4,7 @@ date: 2025-05-28
 excerpt: "A framework for reasoning about the reliability of large language models, and why traditional software testing approaches fall short."
 keywords: ["LLM Testing", "Metamorphic Testing", "Software Reliability", "AI Safety"]
 related: []
-featured: true
+featured: false
 ---
 
 <!--
@@ -73,7 +73,3 @@ Define properties that should always hold:
 As LLMs become more capable, testing them becomes both more important and more difficult. The approaches I've outlined here are a starting point — we need better tooling, better metrics, and better theoretical frameworks.
 
 If you're working on these problems, I'd love to hear from you. The field of LLM testing is young, and the best ideas are probably still ahead of us.
-
----
-
-*This is the first post in a series about testing AI systems. Next: "Why Metamorphic Testing Matters for AI."*

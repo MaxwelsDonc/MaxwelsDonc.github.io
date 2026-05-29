@@ -33,6 +33,7 @@ export const navigation = {
 export const homePage = {
   greeting: "Hi, I'm Zhou Zenghui",
   subtitle: "Token is Cheap, Attention is Expensive",
+  bio: "Ph.D. Candidate @ Beihang University | Researching LLM Testing & Quantum Software Engineering",
   keywords: ["LLM Testing", "Quantum Software Engineering", "Trustworthy AI"],
 };
 

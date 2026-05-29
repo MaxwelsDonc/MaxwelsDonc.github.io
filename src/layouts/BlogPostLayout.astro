@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import BlogToc from "../components/BlogToc.astro";
 import Giscus from "../components/Giscus.astro";
 
 export interface Props {
@@ -28,19 +29,23 @@ const formattedDate = date.toLocaleDateString("en-US", {
           <a href="/blog">&larr; Blog</a>
         </div>
         <h1>{title}</h1>
-        <div class="article-date">Published {formattedDate}</div>
+        <div class="article-meta">
+          <span class="article-date">Published {formattedDate}</span>
+          {keywords && keywords.length > 0 && (
+            <span class="article-keywords">
+              {keywords.map((kw) => <span class="article-kw-tag">{kw}</span>)}
+            </span>
+          )}
+        </div>
       </header>
 
-      <div class="article-body">
-        <slot />
+      <div class="blog-layout">
+        <BlogToc />
+        <div class="article-body">
+          <slot />
+        </div>
       </div>
     </article>
-
-    {keywords && keywords.length > 0 && (
-      <nav class="article-keywords" aria-label="Keywords">
-        {keywords.map((kw) => <span class="article-kw-tag">{kw}</span>)}
-      </nav>
-    )}
 
     {relatedPosts && relatedPosts.length > 0 && (
       <nav class="article-related" aria-label="Related posts">
@@ -67,3 +72,152 @@ const formattedDate = date.toLocaleDateString("en-US", {
     </div>
   </div>
 </BaseLayout>
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: false, theme: "neutral" });
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".language-mermaid").forEach(async (el) => {
+      const pre = el.closest("pre");
+      if (!pre) return;
+      const { svg } = await mermaid.render("m-" + Math.random().toString(36).slice(2), el.textContent || "");
+      pre.outerHTML = `<figure class="mermaid-diagram">${svg}</figure>`;
+    });
+  });
+</script>
+
+<style is:global>
+  /* Article header — top black banner */
+  .article-header {
+    padding: var(--space-xl) 0 var(--space-lg);
+  }
+  .article-header h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, var(--text-4xl));
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Article body */
+  .article-body {
+    max-width: var(--max-w-text);
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: 1.8;
+    color: var(--color-text);
+  }
+  .article-body h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: var(--space-lg);
+    letter-spacing: -0.02em;
+  }
+  .article-body h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.01em;
+  }
+  .article-body p {
+    margin-bottom: 1.5rem;
+  }
+  .article-body ul,
+  .article-body ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5em;
+  }
+  .article-body li {
+    margin-bottom: var(--space-sm);
+  }
+  .article-body strong {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .article-body a {
+    text-decoration: none;
+    transition: text-decoration-color 0.2s ease;
+  }
+  .article-body a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--color-text-muted);
+  }
+  .article-body blockquote {
+    font-family: var(--font-serif);
+    margin: 1.5rem 0;
+    padding: 0 var(--space-md);
+    border-left: 4px solid var(--color-border);
+    font-style: italic;
+    color: var(--color-text-secondary);
+    font-size: var(--text-lg);
+    line-height: 1.8;
+  }
+  .article-body img {
+    max-width: 100%;
+    height: auto;
+    margin: var(--space-lg) 0;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .article-body pre {
+    background: var(--color-code-bg);
+    padding: var(--space-md);
+    overflow-x: auto;
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin: var(--space-md) 0;
+    border-radius: 0;
+    border: none;
+  }
+  .article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+  }
+  .article-body :not(pre) > code {
+    background: var(--color-code-bg);
+    padding: 0.15em 0.4em;
+    border-radius: 2px;
+    color: var(--color-text);
+    font-weight: 400;
+  }
+  .article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-lg) 0;
+    font-size: var(--text-sm);
+  }
+  .article-body th,
+  .article-body td {
+    padding: 0.5em var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .article-body th {
+    font-weight: 600;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .article-body hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: var(--space-lg) 0;
+  }
+  .article-body sup {
+    font-size: var(--text-xs);
+  }
+  .article-body .footnotes {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+</style>

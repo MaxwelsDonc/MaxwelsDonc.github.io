@@ -25,9 +25,9 @@ const latestPosts = posts
               <span>
                 <a href={`/blog/${post.id.replace(/\.md$/, "")}`} class="entry-title">{post.data.title}</a>
                 {post.data.keywords && post.data.keywords.length > 0 && (
-                  <span class="entry-kw-list">
+                  <div class="entry-kw-list">
                     {post.data.keywords.map((kw: string) => <span class="entry-kw">{kw}</span>)}
-                  </span>
+                  </div>
                 )}
               </span>
             </li>

@@ -9,8 +9,10 @@ import EmailIcon from "./icons/EmailIcon.astro";
 ---
 
 <div class="about-card">
-  <div class="about-card-avatar">
-    <img src={author.avatar} alt={author.name} />
+  <img class="about-card-avatar" src={author.avatar} alt={author.name} />
+  <div class="about-card-body">
+    <h1 class="about-card-name">{author.name}</h1>
+    <p class="about-card-meta">{author.bio} &middot; {author.location}</p>
     <div class="about-card-social">
       {author.github && <a href={`https://github.com/${author.github}`} title="GitHub"><GitHubIcon /></a>}
       {author.googleScholar && <a href={author.googleScholar} title="Google Scholar"><ScholarIcon /></a>}
@@ -19,9 +21,5 @@ import EmailIcon from "./icons/EmailIcon.astro";
       {author.stackoverflow && <a href={author.stackoverflow} title="Stack Overflow"><StackOverflowIcon /></a>}
       {author.email && <a href={`mailto:${author.email}`} title="Email"><EmailIcon /></a>}
     </div>
-  </div>
-  <div>
-    <h1 style="font-size: var(--text-3xl); font-weight: 700; margin-bottom: 0.25em;">{author.name}</h1>
-    <p style="color: var(--color-text-muted); font-size: var(--text-lg);">{author.bio} &middot; {author.location}</p>
   </div>
 </div>
