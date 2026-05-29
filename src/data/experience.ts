@@ -1,0 +1,21 @@
+export interface ExperienceItem {
+  date: string;
+  title: string;
+  company: string;
+  description: string;
+}
+
+const experience: ExperienceItem[] = [
+  {
+    date: "2026.04 – Present",
+    title: "Mobile OS Intern",
+    company: "ByteDance (字节跳动)",
+    description:
+      "Leading AI-driven test case generation from PRD documents. " +
+      "Built SenWorld, a persona-agent-based digital twin framework for " +
+      "high-fidelity downstream test data. Co-developing SmartTest Agent " +
+      "for autonomous test failure diagnosis and auto-fix.",
+  },
+];
+
+export default experience;
