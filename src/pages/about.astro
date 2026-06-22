@@ -1,0 +1,218 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AboutCard from "../components/AboutCard.astro";
+import Section from "../components/Section.astro";
+import Badge from "../components/Badge.astro";
+import CitationCount from "../components/CitationCount.astro";
+
+import { getCollection } from "astro:content";
+import { author, aboutPage } from "../config";
+import { mdInline, toSlug } from "../utils/content";
+
+import introRaw from "../data/intro.md?raw";
+import education from "../data/education.json";
+import experience from "../data/experience.json";
+import news from "../data/news.json";
+import publications from "../data/publications.json";
+import projects from "../data/projects.json";
+import honors from "../data/honors.json";
+import services from "../data/services.json";
+import skills from "../data/skills.json";
+
+const s = aboutPage.sections;
+
+const scholarUrl = (paperId: string) =>
+  `https://scholar.google.com/citations?view_op=view_citation&hl=en&user=${author.googleScholarId}&citation_for_view=${paperId}`;
+
+const introParagraphs = introRaw.trim().split(/\n\n+/);
+
+// News = manual entries (news.json) + blog posts marked `news: true`,
+// merged, sorted newest-first, top 3. Rendered as: before <a>linkText</a> after.
+type NewsItem = {
+  sortKey: number;
+  date: string;
+  before: string;
+  link: string | null;
+  linkText: string;
+  after: string;
+};
+
+const ymToDate = (ym: string) => {
+  const [y, m] = ym.split(".");
+  return new Date(Number(y), Number(m || 1) - 1, 1).getTime();
+};
+const toYM = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
+
+const manualNews: NewsItem[] = news.map((item) => ({
+  sortKey: ymToDate(item.date),
+  date: item.date,
+  before: item.text,
+  link: item.link ?? null,
+  linkText: item.linkText ?? item.link ?? "",
+  after: item.suffix ?? "",
+}));
+
+const blogNews: NewsItem[] = (
+  await getCollection("blog", ({ data }) => !data.draft && data.news)
+).map((post) => ({
+  sortKey: post.data.date.getTime(),
+  date: toYM(post.data.date),
+  before: "",
+  link: `/blog/${toSlug(post.id)}`,
+  linkText: post.data.title,
+  after: "",
+}));
+
+const newsItems = [...manualNews, ...blogNews]
+  .sort((a, b) => b.sortKey - a.sortKey)
+  .slice(0, 3);
+
+---
+
+<BaseLayout title="About">
+  <div class="content-container about-page" style="padding-top: var(--space-lg)">
+    <AboutCard />
+
+    {s.aboutMe && (
+      <Section title="About Me">
+        {introParagraphs.map((p: string) => <p set:html={mdInline(p.trim())} />)}
+      </Section>
+    )}
+
+    {s.education && (
+      <Section title="Education">
+        <ul class="edu-list">
+          {education.map((item) => (
+            <li class="edu-item">
+              <span class="edu-date">{item.date}</span>
+              <div>
+                <div class="edu-main"><strong>{item.title}</strong>, {item.school}.</div>
+                <div class="cv-desc">{item.description}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )}
+
+    {s.experience && (
+      <Section title="Experience">
+        <ul class="edu-list">
+          {experience.map((item) => (
+            <li class="edu-item">
+              <span class="edu-date">{item.date}</span>
+              <div>
+                <div class="edu-main"><strong>{item.title}</strong>, {item.company}.</div>
+                <div class="cv-desc">{item.description}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )}
+
+    {s.news && newsItems.length > 0 && (
+      <Section title="News">
+        <ul class="news-list">
+          {newsItems.map((item) => (
+            <li class="news-item">
+              <span class="news-date">{item.date}</span>
+              <span>
+                {item.before}
+                {item.link && <a href={item.link}>{item.linkText}</a>}
+                {item.after && <> {item.after}</>}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )}
+
+    {s.publications && (
+      <Section title="Publications">
+        {publications.sections.map((section) => (
+          <>
+            <p class="cv-subheading">{section.heading}</p>
+            {section.papers.map((paper) => (
+              <div class="pub-item">
+                <div class="pub-title">
+                  <a href={scholarUrl(paper.paperId)}>{paper.title}</a>
+                </div>
+                <div class="pub-authors">
+                  <Badge variant="journal">{paper.venue}</Badge>
+                  <CitationCount paperId={paper.paperId} />
+                  <span set:html={mdInline(paper.authors)} />
+                </div>
+              </div>
+            ))}
+          </>
+        ))}
+      </Section>
+    )}
+
+    {s.projects && (
+      <Section title="Research Projects">
+        {projects.map((item) => (
+          <div class="cv-row">
+            <span class="cv-label edu-date">{item.date}</span>
+            <div>
+              <div class="cv-main">
+                <Badge variant="project">{item.role}</Badge>
+                {item.link ? (
+                  <a href={item.link}>{item.title}</a>
+                ) : (
+                  item.title
+                )}
+              </div>
+              <div class="cv-desc">{item.description}</div>
+            </div>
+          </div>
+        ))}
+      </Section>
+    )}
+
+    {s.honors && (
+      <Section title="Honors and Awards">
+        {honors.sections.map((section) => (
+          <>
+            <p class="cv-subheading">{section.heading}</p>
+            {section.items.map((item) => (
+              <div class="cv-row">
+                <span class="cv-label edu-date">{item.date}</span>
+                <span class="cv-main">
+                  <Badge variant="honor">{item.level}</Badge> {item.text}
+                </span>
+              </div>
+            ))}
+          </>
+        ))}
+      </Section>
+    )}
+
+    {s.services && (
+      <Section title="Academic Services">
+        {services.sections.map((section) => (
+          <>
+            <p class="cv-subheading">{section.heading}</p>
+            {section.items.map((item) => (
+              <div class="pub-item service-item">
+                <Badge variant="role">{item.role}</Badge> {item.text}
+              </div>
+            ))}
+          </>
+        ))}
+      </Section>
+    )}
+
+    {s.skills && (
+      <Section title="Skills">
+        <div class="skill-tags">
+          {skills.map((skill: string) => (
+            <span class="skill-tag">{skill}</span>
+          ))}
+        </div>
+      </Section>
+    )}
+  </div>
+</BaseLayout>

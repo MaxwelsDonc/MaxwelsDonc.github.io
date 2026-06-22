@@ -1,0 +1,38 @@
+---
+import { googleScholar } from "../config";
+
+export interface Props {
+  paperId: string;
+}
+const { paperId } = Astro.props;
+---
+
+{googleScholar.enabled && (
+  <span
+    class="badge badge-citation"
+    data-paper-id={paperId}
+    data-stats-url={googleScholar.statsUrl}
+  >
+  </span>
+)}
+
+<script>
+  // Astro deduplicates component scripts — this runs exactly once per page.
+  const statsEl = document.querySelector<HTMLElement>("[data-stats-url]");
+  if (statsEl) {
+    const url = statsEl.dataset.statsUrl;
+    if (url) {
+      fetch(url)
+        .then((r) => r.json())
+        .then((data) => {
+          document.querySelectorAll<HTMLElement>("[data-paper-id]").forEach((el) => {
+            const id = el.dataset.paperId;
+            if (id && data.publications?.[id]) {
+              el.textContent = `${data.publications[id].num_citations} citations`;
+            }
+          });
+        })
+        .catch(() => {});
+    }
+  }
+</script>

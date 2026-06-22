@@ -1,0 +1,32 @@
+name: Update GitHub Profile README
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Python
+      run: sudo apt-get update && sudo apt-get install -y python3
+
+    - name: Generate README and push
+      run: |
+        cd ./github_myprofile_updater
+        python3 update.py
+        git init
+        git config --local user.name "${GITHUB_ACTOR}"
+        git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        export remote_repo="https://${GITHUB_ACTOR}:${{ secrets.GHRS_GITHUB_API_TOKEN }}@github.com/${GITHUB_ACTOR}/${GITHUB_ACTOR}.git"
+        git add -f README.md
+        git commit -m "docs: auto-update profile" || echo "No changes"
+        git push "${remote_repo}" HEAD:main --force

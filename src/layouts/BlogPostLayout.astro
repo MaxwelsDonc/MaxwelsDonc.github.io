@@ -1,0 +1,296 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import BlogToc from "../components/BlogToc.astro";
+import Giscus from "../components/Giscus.astro";
+import { toSlug } from "../utils/content";
+
+export interface Props {
+  title: string;
+  date: Date;
+  description?: string;
+  keywords?: string[];
+  relatedPosts?: Array<{
+    id: string;
+    data: { title: string; date: Date; excerpt?: string };
+  }>;
+}
+const { title, date, description, keywords, relatedPosts } = Astro.props;
+const formattedDate = date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="content-container">
+    <article>
+      <header class="article-header">
+        <div class="article-breadcrumb">
+          <a href="/blog">&larr; Blog</a>
+        </div>
+        <h1>{title}</h1>
+        <div class="article-meta">
+          <span class="article-date">Published {formattedDate}</span>
+          {keywords && keywords.length > 0 && (
+            <span class="article-keywords">
+              {keywords.map((kw) => <span class="article-kw-tag">{kw}</span>)}
+            </span>
+          )}
+        </div>
+      </header>
+
+      <div class="blog-layout">
+        <BlogToc />
+        <div class="article-body">
+          <slot />
+        </div>
+      </div>
+    </article>
+
+    {relatedPosts && relatedPosts.length > 0 && (
+      <nav class="article-related" aria-label="Related posts">
+        <h2 class="article-related-heading">Recommended Reading</h2>
+        <ul class="entry-list">
+          {relatedPosts.map((rp) => (
+            <li class="entry-card">
+              <span class="entry-label">
+                {rp.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+              </span>
+              <a href={`/blog/${toSlug(rp.id)}`} class="entry-title">{rp.data.title}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
+
+    <footer class="article-footer">
+      <a href="/blog" class="article-back">&larr; Back to Blog</a>
+    </footer>
+
+    <div class="article-comments">
+      <Giscus />
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function() {
+    var s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js";
+    s.onload = function() {
+      mermaid.initialize({ startOnLoad: false, theme: "neutral" });
+      var blocks = document.querySelectorAll('[data-language="mermaid"] code');
+      blocks.forEach(async function(el) {
+        var pre = el.closest("pre");
+        if (!pre) return;
+        try {
+          var id = "m-" + Math.random().toString(36).slice(2);
+          var result = await mermaid.render(id, el.textContent || "");
+          pre.outerHTML = '<figure class="mermaid-diagram">' + result.svg + '</figure>';
+        } catch (e) {
+          console.warn("Mermaid render failed:", e);
+        }
+      });
+    };
+    document.head.appendChild(s);
+  })();
+</script>
+
+<script is:inline>
+  // Image lightbox
+  document.addEventListener("click", function(e) {
+    var img = e.target.closest(".article-body img");
+    if (!img) return;
+    var overlay = document.createElement("div");
+    overlay.className = "img-lightbox";
+    overlay.innerHTML = '<img src="' + img.src + '" alt="' + (img.alt || "") + '" />';
+    document.body.appendChild(overlay);
+    overlay.addEventListener("click", function() { overlay.remove(); });
+    document.addEventListener("keydown", function esc(e) {
+      if (e.key === "Escape") { overlay.remove(); document.removeEventListener("keydown", esc); }
+    });
+  });
+</script>
+
+<script is:inline>
+  // Add copy buttons to code blocks
+  window.addEventListener("load", function() {
+  document.querySelectorAll(".article-body pre").forEach(function(pre) {
+    var btn = document.createElement("button");
+    btn.className = "code-copy-btn";
+    btn.textContent = "Copy";
+    pre.appendChild(btn);
+    btn.addEventListener("click", function() {
+      var code = pre.querySelector("code");
+      navigator.clipboard.writeText(code ? code.textContent : pre.textContent).then(function() {
+        btn.textContent = "Copied!";
+        setTimeout(function() { btn.textContent = "Copy"; }, 2000);
+      });
+    });
+  });
+  });
+</script>
+
+<style is:global>
+  .img-lightbox {
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,0.85);
+    display: flex; align-items: center; justify-content: center;
+    cursor: zoom-out;
+  }
+  .img-lightbox img {
+    max-width: 90vw; max-height: 90vh;
+    border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  }
+
+  /* Article header — top black banner */
+  .article-header {
+    padding: var(--space-xl) 0 var(--space-lg);
+  }
+  .article-header h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, var(--text-4xl));
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Article body */
+  .article-body {
+    max-width: var(--max-w-text);
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: 1.8;
+    color: var(--color-text);
+  }
+  .article-body h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: var(--space-lg);
+    letter-spacing: -0.02em;
+  }
+  .article-body h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.01em;
+  }
+  .article-body p {
+    margin-bottom: 1.5rem;
+  }
+  .article-body ul,
+  .article-body ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5em;
+  }
+  .article-body li {
+    margin-bottom: var(--space-sm);
+  }
+  .article-body strong {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .article-body a {
+    text-decoration: none;
+    transition: text-decoration-color 0.2s ease;
+  }
+  .article-body a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--color-text-muted);
+  }
+  .article-body blockquote {
+    font-family: var(--font-serif);
+    margin: 1.5rem 0;
+    padding: 0 var(--space-md);
+    border-left: 4px solid var(--color-border);
+    font-style: italic;
+    color: var(--color-text-secondary);
+    font-size: var(--text-lg);
+    line-height: 1.8;
+  }
+  .article-body img {
+    max-width: 100%;
+    height: auto;
+    margin: var(--space-lg) 0;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .article-body pre {
+    background: var(--color-code-bg) !important;
+    padding: var(--space-md);
+    overflow-x: auto;
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+    margin: var(--space-md) 0;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
+  }
+  .code-copy-btn {
+    position: absolute; top: 6px; right: 6px;
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 400;
+    color: var(--color-text-muted);
+    background: transparent;
+    border: none;
+    padding: 2px 6px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .article-body pre:hover .code-copy-btn { opacity: 1; }
+  .code-copy-btn:hover { color: var(--color-text); }
+  .article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+  }
+  .article-body :not(pre) > code {
+    background: rgba(0,0,0,0.04) !important;
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+    color: var(--color-text);
+    font-weight: 400;
+  }
+  .article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-lg) 0;
+    font-size: var(--text-sm);
+  }
+  .article-body th,
+  .article-body td {
+    padding: 0.5em var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .article-body th {
+    font-weight: 600;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .article-body hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: var(--space-lg) 0;
+  }
+  .article-body sup {
+    font-size: var(--text-xs);
+  }
+  .article-body .footnotes {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+</style>

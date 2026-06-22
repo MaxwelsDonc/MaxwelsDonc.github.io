@@ -1,0 +1,8 @@
+---
+export interface Props {
+  variant?: "journal" | "role" | "honor" | "project";
+}
+const { variant } = Astro.props;
+---
+
+<span class={`badge${variant ? ` badge-${variant}` : ""}`}><slot /></span>

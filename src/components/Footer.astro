@@ -1,0 +1,17 @@
+---
+import { author } from "../config";
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import ScholarIcon from "./icons/ScholarIcon.astro";
+import RSSIcon from "./icons/RSSIcon.astro";
+---
+
+<footer class="site-footer">
+  <div class="content-container">
+    <div class="footer-social">
+      {author.github && <a href={`https://github.com/${author.github}`} title="GitHub"><GitHubIcon /></a>}
+      {author.googleScholar && <a href={author.googleScholar} title="Google Scholar"><ScholarIcon /></a>}
+      <a href="/rss.xml" title="RSS"><RSSIcon /></a>
+    </div>
+    <p class="footer-copy">&copy; {new Date().getFullYear()} {author.name}</p>
+  </div>
+</footer>

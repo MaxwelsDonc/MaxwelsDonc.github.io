@@ -1,0 +1,23 @@
+---
+import { author } from "../config";
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import XIcon from "./icons/XIcon.astro";
+import ScholarIcon from "./icons/ScholarIcon.astro";
+import ORCIDIcon from "./icons/ORCIDIcon.astro";
+import EmailIcon from "./icons/EmailIcon.astro";
+---
+
+<div class="about-card">
+  <img class="about-card-avatar" src={author.avatar} alt={author.name} />
+  <div class="about-card-body">
+    <h1 class="about-card-name">{author.name}</h1>
+    <p class="about-card-meta">{author.bio} &middot; {author.location}</p>
+    <div class="about-card-social">
+      {author.github && <a href={`https://github.com/${author.github}`} title="GitHub"><GitHubIcon /></a>}
+      {author.x && <a href={`https://x.com/${author.x}`} title="X"><XIcon /></a>}
+      {author.googleScholar && <a href={author.googleScholar} title="Google Scholar"><ScholarIcon /></a>}
+      {author.orcid && <a href={author.orcid} title="ORCID"><ORCIDIcon /></a>}
+      {author.email && <a href={`mailto:${author.email}`} title="Email"><EmailIcon /></a>}
+    </div>
+  </div>
+</div>

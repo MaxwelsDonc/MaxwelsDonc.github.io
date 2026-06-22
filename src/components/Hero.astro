@@ -1,0 +1,21 @@
+---
+import { homePage } from "../config";
+---
+
+<section class="hero">
+  <div class="content-container">
+    <h1>{homePage.greeting}</h1>
+    <p class="hero-subtitle">{homePage.subtitle}</p>
+    <nav class="hero-cta" aria-label="Navigation">
+      {homePage.cta.map((item) => (
+        <a href={item.href} class="hero-nav-row">
+          <span class="hero-nav-left">
+            <span class="hero-nav-label">{item.label}</span>
+            <span class="hero-nav-desc">{item.description}</span>
+          </span>
+          <span class="hero-nav-arrow">&rarr;</span>
+        </a>
+      ))}
+    </nav>
+  </div>
+</section>
