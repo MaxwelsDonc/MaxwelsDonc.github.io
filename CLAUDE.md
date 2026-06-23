@@ -38,6 +38,6 @@ This is an Astro 5 static site — an academic personal homepage + blog. Editori
 1. No background colors on content items (except badges)
 2. No border-radius or box-shadow on cards (there are no cards)
 3. Serif for content, sans-serif for metadata only
-4. Hover effects are color transitions only — no scale, no shadow, no background change
+4. Hover effects are color transitions plus at most a slight scale — no shadow, no background change. Scale must use the two `--hover-scale-*` tokens (text 1.02 / icon 1.1), never a raw value
 5. Left-aligned — never center text
 6. Section dividers are top-borders on headings, not between items

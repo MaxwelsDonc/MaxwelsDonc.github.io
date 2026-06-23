@@ -51,6 +51,12 @@
   --space-lg: 2rem;      /* 32px */
   --space-xl: 4rem;      /* 64px */
   --space-2xl: 6rem;     /* 96px */
+
+  /* Hover scale — only two tiers allowed: text links vs. icons.
+     Use these tokens, never a raw scale() value, so the motion
+     language stays uniform. */
+  --hover-scale-text: 1.02;
+  --hover-scale-icon: 1.1;
 }
 
 /* ============================================
@@ -167,7 +173,7 @@ a:hover {
 }
 .site-logo:hover {
   color: var(--color-text-secondary);
-  transform: scale(1.04);
+  transform: scale(var(--hover-scale-text));
 }
 .site-nav {
   display: flex;
@@ -190,7 +196,7 @@ a:hover {
   color: var(--color-text);
 }
 .site-nav a:hover {
-  transform: scale(1.06);
+  transform: scale(var(--hover-scale-text));
 }
 
 /* ============================================
@@ -245,7 +251,7 @@ a:hover {
 }
 .footer-social a:hover {
   color: var(--color-text);
-  transform: scale(1.15);
+  transform: scale(var(--hover-scale-icon));
 }
 .footer-copy {
   color: var(--color-footer-muted);
@@ -347,7 +353,7 @@ p {
 }
 .hero-nav-row:hover {
   color: var(--color-text-secondary);
-  transform: scale(1.02);
+  transform: scale(var(--hover-scale-text));
 }
 .hero-nav-row:hover .hero-nav-arrow {
   transform: translateX(4px);
@@ -485,7 +491,7 @@ p {
 }
 a.entry-title:hover {
   color: var(--color-text-secondary);
-  transform: scale(1.02);
+  transform: scale(var(--hover-scale-text));
 }
 
 .entry-kw-list {
@@ -556,7 +562,7 @@ a.entry-title:hover {
 }
 .about-card-social a:hover {
   color: var(--color-text);
-  transform: scale(1.15);
+  transform: scale(var(--hover-scale-icon));
 }
 
 /* ============================================
@@ -604,7 +610,7 @@ a.entry-title:hover {
 }
 .blog-featured a:hover h2 {
   color: var(--color-text-secondary);
-  transform: scale(1.01);
+  transform: scale(var(--hover-scale-text));
 }
 .blog-featured a p {
   font-family: var(--font-serif);
@@ -645,7 +651,7 @@ a.entry-title:hover {
   border-top: 1px solid var(--color-border);
 }
 a.blog-row:hover {
-  transform: scale(1.01);
+  transform: scale(var(--hover-scale-text));
 }
 .blog-row-date {
   font-family: var(--font-sans);
@@ -1035,7 +1041,7 @@ body strong {
 }
 .pub-title a:hover {
   color: var(--color-text-secondary);
-  transform: scale(1.015);
+  transform: scale(var(--hover-scale-text));
 }
 .pub-authors {
   display: flex;
@@ -1243,7 +1249,7 @@ body strong {
   /* Home entry list */
   .entry-card {
     flex-direction: column;
-    gap: 0;
+    gap: var(--space-xs);
   }
   .entry-label {
     min-width: unset;

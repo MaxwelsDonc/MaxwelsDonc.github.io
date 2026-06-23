@@ -119,7 +119,8 @@ the prose should feel the same. No marketing fluff, no emoji headers.
 1. No background colors on content (badges are the only exception).
 2. No border-radius or box-shadow on content blocks.
 3. Serif (Newsreader) for content, sans-serif (Inter) for metadata only.
-4. Hover effects are color transitions only.
+4. Hover effects are color transitions plus at most a slight scale via the
+   `--hover-scale-text` / `--hover-scale-icon` tokens — never shadow or background.
 5. Left-aligned — never center text.
 6. Section dividers are top/bottom borders on headings, not boxes.
 
