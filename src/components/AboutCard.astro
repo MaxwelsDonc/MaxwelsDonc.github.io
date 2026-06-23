@@ -5,6 +5,13 @@ import XIcon from "./icons/XIcon.astro";
 import ScholarIcon from "./icons/ScholarIcon.astro";
 import ORCIDIcon from "./icons/ORCIDIcon.astro";
 import EmailIcon from "./icons/EmailIcon.astro";
+
+// Email is Base64-encoded at build time and reassembled into a mailto:
+// link by client-side JS. This keeps the plain address out of the static
+// HTML, defeating the regex-based harvesters spambots rely on.
+const emailEncoded = author.email
+  ? Buffer.from(author.email).toString("base64")
+  : "";
 ---
 
 <div class="about-card">
@@ -17,7 +24,20 @@ import EmailIcon from "./icons/EmailIcon.astro";
       {author.x && <a href={`https://x.com/${author.x}`} title="X"><XIcon /></a>}
       {author.googleScholar && <a href={author.googleScholar} title="Google Scholar"><ScholarIcon /></a>}
       {author.orcid && <a href={author.orcid} title="ORCID"><ORCIDIcon /></a>}
-      {author.email && <a href={`mailto:${author.email}`} title="Email"><EmailIcon /></a>}
+      {author.email && <a class="email-link" href="#" title="Email" aria-label="Email" data-email={emailEncoded}><EmailIcon /></a>}
     </div>
   </div>
 </div>
+
+<script>
+  // Reassemble the mailto: link from the Base64 payload, then drop the
+  // data attribute so the decoded address never lingers in the DOM markup.
+  document
+    .querySelectorAll<HTMLAnchorElement>("a.email-link[data-email]")
+    .forEach((a) => {
+      const enc = a.dataset.email;
+      if (!enc) return;
+      a.href = "mailto:" + atob(enc);
+      a.removeAttribute("data-email");
+    });
+</script>
