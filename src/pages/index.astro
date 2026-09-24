@@ -78,6 +78,24 @@ const newsItems = ([...news] as NewsItem[])
     </div>
   )}
 
+  {s.experience && (
+    <div class="reveal">
+      <Section title="Experience" id="experience">
+        <ul class="row-list reveal-stagger">
+          {experience.map((item) => (
+            <li class="row">
+              <span class="row-label">{item.date}</span>
+              <div class="row-body">
+                <div class="row-title"><strong>{item.title}</strong>, {item.company}.</div>
+                <div class="row-desc">{item.description}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    </div>
+  )}
+
   {s.publications && (
     <div class="reveal">
       <Section title="Publications" id="publications">
@@ -104,24 +122,6 @@ const newsItems = ([...news] as NewsItem[])
             ))}
           </>
         ))}
-      </Section>
-    </div>
-  )}
-
-  {s.experience && (
-    <div class="reveal">
-      <Section title="Experience" id="experience">
-        <ul class="row-list reveal-stagger">
-          {experience.map((item) => (
-            <li class="row">
-              <span class="row-label">{item.date}</span>
-              <div class="row-body">
-                <div class="row-title"><strong>{item.title}</strong>, {item.company}.</div>
-                <div class="row-desc">{item.description}</div>
-              </div>
-            </li>
-          ))}
-        </ul>
       </Section>
     </div>
   )}
