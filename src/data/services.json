@@ -3,7 +3,7 @@
     {
       "heading": "Conference & Workshop Service",
       "items": [
-        { "role": "PC Member", "text": "AISQ 2025 (The 2nd International Workshop on Advanced Intelligent Software Applications)." }
+        { "role": "PC Member", "text": "AISQ 2026 (co-located with IEEE ISSRE 2026)." }
       ]
     },
     {
@@ -15,11 +15,18 @@
       ]
     },
     {
-      "heading": "Leadership & Community Service",
+      "heading": "Invited Talks",
+      "items": [
+        { "role": "ISSREW 2026", "text": "SenWorld: A Digital-Twin Simulation for Generating Context-Rich Evaluation Data." },
+        { "role": "MET 2021", "text": "Follow-up Test Cases Are Better Than Source Test Cases in Metamorphic Testing (co-located with ICSE 2021)." }
+      ]
+    },
+    {
+      "heading": "Teaching & Mentoring",
       "items": [
         { "role": "Leadership", "text": "President of Beihang Toastmasters Club (2022 – 2023)." },
-        { "role": "Leadership", "text": "Director of Academic Support Center, SASEE, Beihang University (2021 – 2024)." },
-        { "role": "Mentorship", "text": "Academic Counselor, SASEE, BUAA (2021 – 2024)." }
+        { "role": "Leadership", "text": "Academic Counselor & Director of Academic Support Center, SASEE, Beihang University (2021 – 2024)." },
+        { "role": "Teaching", "text": "Teaching Assistant, Discrete Mathematics, Beihang University (2020 – 2021)." }
       ]
     }
   ]

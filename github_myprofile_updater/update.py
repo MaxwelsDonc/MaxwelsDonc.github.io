@@ -52,6 +52,8 @@ def main():
                 text += f"[{item['linkText']}]({item['link']})"
             if item.get("suffix"):
                 text += item["suffix"]
+            if item.get("detail"):
+                text += f" — {item['detail']}"
             lines.append(f"- **{item['date']}**: {text}")
         lines.append("")
 

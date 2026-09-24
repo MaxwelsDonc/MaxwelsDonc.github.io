@@ -1,21 +1,56 @@
 ---
-import { homePage } from "../config";
+import { author, homePage } from "../config";
+
+// Email is Base64-encoded at build time and reassembled into a mailto:
+// link by client-side JS. This keeps the plain address out of the static
+// HTML, defeating the regex-based harvesters spambots rely on.
+const emailEncoded = author.email
+  ? btoa(author.email)
+  : "";
+
+const links = [
+  author.googleScholar && { href: author.googleScholar, label: "Google Scholar" },
+  author.github && { href: `https://github.com/${author.github}`, label: "GitHub" },
+  author.x && { href: `https://x.com/${author.x}`, label: "X" },
+  author.orcid && { href: author.orcid, label: "ORCID" },
+].filter((l): l is { href: string; label: string } => Boolean(l));
 ---
 
 <section class="hero">
   <div class="content-container">
-    <h1>{homePage.greeting}</h1>
-    <p class="hero-subtitle">{homePage.subtitle}</p>
-    <nav class="hero-cta" aria-label="Navigation">
-      {homePage.cta.map((item) => (
-        <a href={item.href} class="hero-nav-row">
-          <span class="hero-nav-left">
-            <span class="hero-nav-label">{item.label}</span>
-            <span class="hero-nav-desc">{item.description}</span>
-          </span>
-          <span class="hero-nav-arrow">&rarr;</span>
-        </a>
-      ))}
-    </nav>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>{homePage.name}<span class="hero-name-cn">{homePage.nameCn}</span></h1>
+        <p class="hero-subtitle">{homePage.subtitle}</p>
+        <p class="hero-links">
+          {links.map((l, i) => (
+            <>
+              {i > 0 && <span class="hero-links-sep">·</span>}
+              <a href={l.href}>{l.label}</a>
+            </>
+          ))}
+          {author.email && (
+            <>
+              <span class="hero-links-sep">·</span>
+              <a class="email-link" href="#" data-email={emailEncoded}>Email</a>
+            </>
+          )}
+        </p>
+      </div>
+      <img class="hero-avatar" src={author.avatar} alt={author.name} />
+    </div>
   </div>
 </section>
+
+<script>
+  // Reassemble the mailto: link from the Base64 payload, then drop the
+  // data attribute so the decoded address never lingers in the DOM markup.
+  document
+    .querySelectorAll<HTMLAnchorElement>("a.email-link[data-email]")
+    .forEach((a) => {
+      const enc = a.dataset.email;
+      if (!enc) return;
+      a.href = "mailto:" + atob(enc);
+      a.removeAttribute("data-email");
+    });
+</script>

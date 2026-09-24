@@ -1,8 +1,14 @@
 [
   {
-    "date": "2026.04 – Present",
-    "title": "Mobile OS Intern",
-    "company": "ByteDance (字节跳动)",
-    "description": "Leading AI-driven test case generation from PRD documents. Built SenWorld, a persona-agent-based digital twin framework for high-fidelity downstream test data. Co-developing SmartTest Agent for autonomous test failure diagnosis and auto-fix."
+    "date": "2026.08 – Present",
+    "title": "Multimodal Evaluation Algorithm Intern",
+    "company": "Kling AI, Kuaishou (可灵 AI · 快手)",
+    "description": "Building MLLM-as-Judge evaluation pipelines for image stylization (human-agreement lifted from 56% to 71%); designed a VLLM-OCR coupled detector for text-rendering defects in generated content; distilling VQA/Rubric quality signals into reward models for RL-stage training alignment."
+  },
+  {
+    "date": "2026.04 – 2026.08",
+    "title": "LLM Evaluation Algorithm Intern",
+    "company": "Doubao Mobile Assistant, ByteDance (豆包手机助手 · 字节跳动)",
+    "description": "Designed the evaluation framework for proactive agent suggestions; built a PRD-to-test-case generation workflow (AI-generated cases up to 60%); led SenWorld, a persona-agent and digital-twin simulation environment that yields oracle-labeled, annotation-free evaluation data (accepted at ISSREW 2026)."
   }
 ]

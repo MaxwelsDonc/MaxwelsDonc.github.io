@@ -1,39 +1,224 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import Section from "../components/Section.astro";
-import { toSlug } from "../utils/content";
+import CitationCount from "../components/CitationCount.astro";
 
-const posts = await getCollection("blog", ({ data }) => !data.draft);
-const latestPosts = posts
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+import { author, homePage } from "../config";
+import { mdInline } from "../utils/content";
+
+import introRaw from "../data/intro.md?raw";
+import education from "../data/education.json";
+import experience from "../data/experience.json";
+import news from "../data/news.json";
+import publications from "../data/publications.json";
+import projects from "../data/projects.json";
+import honors from "../data/honors.json";
+import services from "../data/services.json";
+import skills from "../data/skills.json";
+
+const s = homePage.sections;
+
+const scholarUrl = (paperId: string) =>
+  `https://scholar.google.com/citations?view_op=view_citation&hl=en&user=${author.googleScholarId}&citation_for_view=${paperId}`;
+
+const introParagraphs = introRaw.trim().split(/\n\n+/);
+
+const ymToDate = (ym: string) => {
+  const [y, m] = ym.split(".");
+  return new Date(Number(y), Number(m || 1) - 1, 1).getTime();
+};
+
+type NewsItem = {
+  date: string;
+  text: string;
+  link?: string;
+  linkText?: string;
+  suffix?: string;
+  detail?: string;
+};
+
+const newsItems = ([...news] as NewsItem[])
+  .sort((a, b) => ymToDate(b.date) - ymToDate(a.date))
   .slice(0, 5);
 ---
 
 <BaseLayout>
   <Hero />
 
-  {latestPosts.length > 0 && (
+  {s.aboutMe && (
     <div class="reveal">
-      <Section title="Latest Posts">
-        <ul class="entry-list reveal-stagger">
-          {latestPosts.map((post) => (
-            <li class="entry-card">
-              <span class="entry-label">
-                {post.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
-              </span>
-              <span>
-                <a href={`/blog/${toSlug(post.id)}`} class="entry-title">{post.data.title}</a>
-                {post.data.keywords && post.data.keywords.length > 0 && (
-                  <div class="entry-kw-list">
-                    {post.data.keywords.map((kw: string) => <span class="entry-kw">{kw}</span>)}
-                  </div>
-                )}
-              </span>
+      <section class="section" id="about">
+        <div class="content-container">
+          {introParagraphs.map((p: string) => <p set:html={mdInline(p.trim())} />)}
+        </div>
+      </section>
+    </div>
+  )}
+
+  {s.news && newsItems.length > 0 && (
+    <div class="reveal">
+      <Section title="News" id="news">
+        <ul class="row-list reveal-stagger">
+          {newsItems.map((item) => (
+            <li class="row">
+              <span class="row-label">{item.date}</span>
+              <div class="row-body">
+                <div class="row-title">
+                  {item.text}
+                  {item.link && <a href={item.link}>{item.linkText ?? item.link}</a>}
+                  {item.suffix && <> {item.suffix}</>}
+                </div>
+                {item.detail && <div class="row-sub">{item.detail}</div>}
+              </div>
             </li>
           ))}
         </ul>
+      </Section>
+    </div>
+  )}
+
+  {s.publications && (
+    <div class="reveal">
+      <Section title="Publications" id="publications">
+        {publications.sections.map((section) => (
+          <>
+            <p class="cv-subheading">{section.heading}</p>
+            {section.papers.map((paper) => (
+              <div class="row">
+                <span class="row-label">{paper.venue}</span>
+                <div class="row-body">
+                  <div class="row-title">
+                    {paper.paperId ? (
+                      <a href={scholarUrl(paper.paperId)}>{paper.title}</a>
+                    ) : (
+                      paper.title
+                    )}
+                  </div>
+                  <div class="row-sub">
+                    {paper.paperId && <CitationCount paperId={paper.paperId} />}
+                    <span set:html={mdInline(paper.authors)} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        ))}
+      </Section>
+    </div>
+  )}
+
+  {s.experience && (
+    <div class="reveal">
+      <Section title="Experience" id="experience">
+        <ul class="row-list reveal-stagger">
+          {experience.map((item) => (
+            <li class="row">
+              <span class="row-label">{item.date}</span>
+              <div class="row-body">
+                <div class="row-title"><strong>{item.title}</strong>, {item.company}.</div>
+                <div class="row-desc">{item.description}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    </div>
+  )}
+
+  {s.education && (
+    <div class="reveal">
+      <Section title="Education" id="education">
+        <ul class="row-list reveal-stagger">
+          {education.map((item) => (
+            <li class="row">
+              <span class="row-label">{item.date}</span>
+              <div class="row-body">
+                <div class="row-title"><strong>{item.title}</strong>, {item.school}.</div>
+                <div class="row-desc">{item.description}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    </div>
+  )}
+
+  {s.projects && (
+    <div class="reveal">
+      <Section title="Research Projects" id="projects">
+        {projects.map((item) => (
+          <div class="row">
+            <span class="row-label">{item.date}</span>
+            <div class="row-body">
+              <div class="row-title">
+                {item.link ? (
+                  <a href={item.link}>{item.title}</a>
+                ) : (
+                  item.title
+                )}
+                <span class="row-meta">{item.role}</span>
+              </div>
+              <div class="row-desc">{item.description}</div>
+            </div>
+          </div>
+        ))}
+      </Section>
+    </div>
+  )}
+
+  {s.honors && (
+    <div class="reveal">
+      <Section title="Honors and Awards" id="honors">
+        <div class="rows-compact">
+          {honors.sections.map((section) => (
+            <>
+              <p class="cv-subheading">{section.heading}</p>
+              {section.items.map((item) => (
+                <div class="row">
+                  <span class="row-label">{item.date}</span>
+                  <div class="row-body">
+                    <span class="row-text">{item.text}</span>
+                  </div>
+                </div>
+              ))}
+            </>
+          ))}
+        </div>
+      </Section>
+    </div>
+  )}
+
+  {s.services && (
+    <div class="reveal">
+      <Section title="Academic Services" id="services">
+        <div class="rows-compact">
+          {services.sections.map((section) => (
+            <>
+              <p class="cv-subheading">{section.heading}</p>
+              {section.items.map((item) => (
+                <div class="row">
+                  <span class="row-label">{item.role}</span>
+                  <div class="row-body">
+                    <span class="row-text">{item.text}</span>
+                  </div>
+                </div>
+              ))}
+            </>
+          ))}
+        </div>
+      </Section>
+    </div>
+  )}
+
+  {s.skills && (
+    <div class="reveal">
+      <Section title="Skills" id="skills">
+        <div class="skill-tags">
+          {skills.map((skill: string) => (
+            <span class="skill-tag">{skill}</span>
+          ))}
+        </div>
       </Section>
     </div>
   )}

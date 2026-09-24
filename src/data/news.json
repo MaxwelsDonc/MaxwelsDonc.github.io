@@ -1,5 +1,23 @@
 [
   {
+    "date": "2026.09",
+    "text": "Our empirical study on code comments for quantum SDKs was published in ACM TOSEM (CCF-A).",
+    "detail": "First-author work on comment practices in quantum software development kits (Qiskit)."
+  },
+  {
+    "date": "2026.08",
+    "text": "Joined ",
+    "link": "https://klingai.com",
+    "linkText": "Kling AI (Kuaishou)",
+    "suffix": " as a Multimodal Evaluation Algorithm Intern.",
+    "detail": "Working on MLLM-as-Judge evaluation pipelines and reward modeling."
+  },
+  {
+    "date": "2026.07",
+    "text": "SenWorld was accepted by ISSREW 2026 (co-located with IEEE ISSRE).",
+    "detail": "A digital-twin simulation for generating context-rich, oracle-labeled evaluation data."
+  },
+  {
     "date": "2025.12",
     "text": "Honored as the Merit Student of Beijing (City-level Honor)."
   },
@@ -7,13 +25,7 @@
     "date": "2025.11",
     "text": "Open-sourced a Response Letter LaTeX Template on ",
     "link": "https://github.com/MaxwelsDonc/responseLetterLatexTemplate",
-    "linkText": "GitHub"
-  },
-  {
-    "date": "2025.01",
-    "text": "Invited to serve as a PC Member for the ",
-    "link": "https://sites.google.com/view/aisq-2025/home",
-    "linkText": "AISQ 2025",
-    "suffix": " workshop (co-located with IEEE ISSRE)."
+    "linkText": "GitHub",
+    "suffix": "."
   }
 ]

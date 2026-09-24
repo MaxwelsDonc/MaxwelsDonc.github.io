@@ -1,27 +1,29 @@
 {
   "sections": [
     {
-      "heading": "Academic Honors & Titles",
+      "heading": "Academic Honors",
       "items": [
         { "date": "2025", "level": "City-level", "text": "Merit Student of Beijing (北京市三好学生)." },
-        { "date": "2019, 2022", "level": "University", "text": "Outstanding Graduate Student / Excellent Graduate, Beihang University." },
-        { "date": "2021", "level": "School", "text": "School Merit Student, SASEE, Beihang University." }
+        { "date": "2022", "level": "University", "text": "Outstanding Graduate Student, Beihang University." },
+        { "date": "2022", "level": "School", "text": "Merit Student, SASEE, Beihang University." },
+        { "date": "2019", "level": "University", "text": "Outstanding Graduate, Beihang University." },
+        { "date": "2015", "level": "University", "text": "Outstanding Freshman Award, Beihang University." }
       ]
     },
     {
       "heading": "Scholarships & Competitions",
       "items": [
         { "date": "2019, 2020", "level": "University", "text": "First Prize, Academic Excellence Scholarship, Beihang University." },
-        { "date": "2017", "level": "University", "text": "First Prize, Scholarship for Academic Competitions, Beihang University." },
-        { "date": "2017", "level": "Competition", "text": "Honorable Mention, Mathematical Contest in Modeling (MCM/ICM)." }
+        { "date": "2017", "level": "Competition", "text": "Second Prize, Mathematical Contest in Modeling (MCM/ICM)." },
+        { "date": "2017", "level": "University", "text": "First Prize, Scholarship for Academic Competitions, Beihang University." }
       ]
     },
     {
-      "heading": "Leadership & Service Awards",
+      "heading": "Leadership & Service",
       "items": [
+        { "date": "2022, 2023", "level": "University", "text": "Outstanding Part-time Student Cadre, Beihang University." },
         { "date": "2017, 2022, 2023", "level": "University", "text": "Outstanding Student Leader, Beihang University." },
-        { "date": "2022", "level": "University", "text": "Outstanding Member of the Communist Youth League, Beihang University." },
-        { "date": "2022, 2023", "level": "Service", "text": "Outstanding Academic Counselor Award, Beihang University." }
+        { "date": "2022", "level": "University", "text": "Outstanding Member of the Communist Youth League, Beihang University." }
       ]
     }
   ]

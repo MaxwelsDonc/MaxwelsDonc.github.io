@@ -4,7 +4,7 @@
 
 export const site = {
   title: "Zhou Zenghui",
-  description: "PhD Candidate at Beihang University",
+  description: "Ph.D. candidate at Beihang University — reliable evaluation of intelligent systems",
   url: "https://zhouzenghui.site",
   lang: "en",
   /** Google Analytics ID. Remove or set to "" to disable. */
@@ -14,9 +14,9 @@ export const site = {
 export const author = {
   name: "Zhou Zenghui (周增辉)",
   avatar: "/images/profile.jpg",
-  bio: "Beihang University",
+  bio: "Ph.D. Candidate, Beihang University",
   location: "Beijing, China",
-  email: "zhouzenghui@buaa.edu.cn",
+  email: "zhouzenghui.p@outlook.com",
   github: "MaxwelsDonc",
   x: "MaxwelDonc",
   googleScholar: "https://scholar.google.com.hk/citations?user=mrf-JvkAAAAJ",
@@ -27,34 +27,24 @@ export const author = {
 
 export const navigation = {
   header: [
-    { label: "Intro", href: "/about" },
-    { label: "Blog", href: "/blog" },
+    { label: "About", href: "/#about" },
+    { label: "News", href: "/#news" },
+    { label: "Publications", href: "/#publications" },
+    { label: "Experience", href: "/#experience" },
   ],
 };
 
 export const homePage = {
-  greeting: "Hi, I'm Zhou Zenghui",
-  subtitle: "Token is Cheap, Attention is Expensive",
-  keywords: ["LLM Testing", "Quantum Software Engineering", "Trustworthy AI"],
-  cta: [
-    { label: "Intro", href: "/about", description: "Research, publications, CV" },
-    { label: "Blog", href: "/blog",  description: "Thoughts on AI and software" },
-  ],
-};
-
-export const blogPage = {
-  title: "Blog",
-  subtitle: "Thoughts on AI, software, and beyond",
-};
-
-export const aboutPage = {
+  name: "Zhou Zenghui",
+  nameCn: "周增辉",
+  subtitle: "Token is cheap, attention is expensive.",
   /** Toggle sections on/off. Set false to hide a section entirely. */
   sections: {
     aboutMe: true,
-    education: true,
-    experience: true,
     news: true,
     publications: true,
+    experience: true,
+    education: true,
     projects: true,
     honors: true,
     services: true,
@@ -65,15 +55,6 @@ export const aboutPage = {
 export const googleScholar = {
   enabled: true,
   statsUrl: "https://cdn.jsdelivr.net/gh/MaxwelsDonc/MaxwelsDonc.github.io@google-scholar-stats/gs_data.json",
-};
-
-export const giscus = {
-  /** GitHub repo, e.g. "yourname/yourname.github.io" */
-  repo: "MaxwelsDonc/MaxwelsDonc.github.io",
-  /** Get these from https://giscus.app — leave empty to disable comments */
-  repoId: "",
-  category: "Blog Comments",
-  categoryId: "",
 };
 
 // ============================================
@@ -91,16 +72,11 @@ function validateConfig() {
   if (!author.name || author.name === "Your Name")
     errors.push('author.name is required. Set it in src/config.ts');
 
-  if (giscus.repoId && !giscus.categoryId)
-    errors.push('giscus: set both repoId AND categoryId, or leave both empty');
-  if (!giscus.repoId && giscus.categoryId)
-    errors.push('giscus: set both repoId AND categoryId, or leave both empty');
-
   if (errors.length > 0) {
     console.error("\n❌ Config validation failed:\n");
     errors.forEach((e) => console.error(`  • ${e}`));
     console.error("\nFix src/config.ts and try again.\n");
-    process.exit(1);
+    throw new Error("Config validation failed — see messages above.");
   }
 }
 

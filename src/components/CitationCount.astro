@@ -27,8 +27,10 @@ const { paperId } = Astro.props;
         .then((data) => {
           document.querySelectorAll<HTMLElement>("[data-paper-id]").forEach((el) => {
             const id = el.dataset.paperId;
-            if (id && data.publications?.[id]) {
-              el.textContent = `${data.publications[id].num_citations} citations`;
+            if (!id) return;
+            const pubs = data.publications?.[id];
+            if (pubs && pubs.num_citations > 0) {
+              el.textContent = `${pubs.num_citations} citations`;
             }
           });
         })
