@@ -1,12 +1,11 @@
 ---
-import { site, navigation } from "../config";
+import { navigation } from "../config";
 
 const currentPath = Astro.url.pathname;
 ---
 
 <header class="site-header">
   <div class="content-container">
-    <a href="/" class="site-logo">{site.title}</a>
     <nav>
       <ul class="site-nav">
         {navigation.header.map((item) => (

@@ -155,22 +155,6 @@ a:hover {
 .site-header .content-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-.site-logo {
-  font-family: var(--font-serif);
-  font-size: var(--text-lg);
-  font-weight: 500;
-  color: var(--color-text);
-  text-decoration: none;
-  letter-spacing: -0.01em;
-  display: inline-block;
-  transition: color 0.2s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  transform-origin: left center;
-}
-.site-logo:hover {
-  color: var(--color-text-secondary);
-  transform: scale(var(--hover-scale-text));
 }
 .site-nav {
   display: flex;
@@ -588,9 +572,6 @@ body strong {
   }
   .site-nav a {
     font-size: var(--text-xs);
-  }
-  .site-logo {
-    white-space: nowrap;
   }
 }
 

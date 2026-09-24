@@ -48,7 +48,7 @@ const newsItems = ([...news] as NewsItem[])
 
   {s.aboutMe && (
     <div class="reveal">
-      <section class="section" id="about">
+      <section class="section">
         <div class="content-container">
           {introParagraphs.map((p: string) => <p set:html={mdInline(p.trim())} />)}
         </div>
