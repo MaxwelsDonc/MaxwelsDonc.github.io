@@ -26,14 +26,14 @@ const twitterHandle = author.x ? `@${author.x}` : undefined;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={pageDescription} />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|newsreader:400,400i,500,500i,600|jetbrains-mono:400,500" rel="stylesheet" />
+    <!-- Fonts: self-hosted variable fonts, preloaded (all above the fold) -->
+    <link rel="preload" href="/fonts/Newsreader.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Inter.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin />
 
     <title>{pageTitle}</title>
 
     <link rel="canonical" href={new URL(currentPath, site.url).href} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={pageTitle} />
