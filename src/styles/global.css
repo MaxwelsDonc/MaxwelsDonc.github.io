@@ -540,31 +540,42 @@ body strong {
    ============================================ */
 
 @media (max-width: 768px) {
-  /* Hero */
+  /* Hero — mobile: name + avatar share a row, tagline and links go full-width */
   .hero {
     padding: var(--space-lg) 0 var(--space-sm);
   }
   .hero-inner {
     flex-direction: row;
-    gap: var(--space-md);
+    flex-wrap: wrap;
+    gap: 0 var(--space-md);
     align-items: flex-start;
   }
+  .hero-text {
+    display: contents;
+  }
   .hero h1 {
+    flex: 1;
+    order: 1;
     font-size: clamp(1.75rem, 8vw, 2.5rem);
   }
+  .hero-avatar {
+    order: 2;
+    width: 96px;
+    height: 96px;
+    margin-top: var(--space-xs);
+  }
   .hero-subtitle {
+    order: 3;
+    width: 100%;
     font-size: var(--text-base);
   }
   .hero-links {
+    order: 4;
+    width: 100%;
     font-size: var(--text-xs);
   }
   .hero-links-sep {
     margin: 0 var(--space-xs);
-  }
-  .hero-avatar {
-    width: 72px;
-    height: 72px;
-    margin-top: var(--space-xs);
   }
 
   /* Sections */
