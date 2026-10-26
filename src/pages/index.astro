@@ -41,6 +41,17 @@ type NewsItem = {
 const newsItems = ([...news] as NewsItem[])
   .sort((a, b) => ymToDate(b.date) - ymToDate(a.date))
   .slice(0, 5);
+
+type Paper = {
+  title: string;
+  venue: string;
+  paperId?: string;
+  /** Direct link (e.g. arXiv); takes precedence over the Scholar link. */
+  link?: string;
+  authors: string;
+};
+type PubSection = { heading: string; papers: Paper[] };
+const pubSections = (publications.sections as PubSection[]);
 ---
 
 <BaseLayout>
@@ -99,16 +110,18 @@ const newsItems = ([...news] as NewsItem[])
   {s.publications && (
     <div class="reveal">
       <Section title="Publications" id="publications">
-        {publications.sections.map((section) => (
+        {pubSections.map((section) => (
           <>
             <p class="cv-subheading">{section.heading}</p>
-            {section.papers.map((paper) => (
+            {section.papers.map((paper) => {
+              const href = paper.link ?? (paper.paperId ? scholarUrl(paper.paperId) : null);
+              return (
               <div class="row">
                 <span class="row-label">{paper.venue}</span>
                 <div class="row-body">
                   <div class="row-title">
-                    {paper.paperId ? (
-                      <a href={scholarUrl(paper.paperId)}>{paper.title}</a>
+                    {href ? (
+                      <a href={href}>{paper.title}</a>
                     ) : (
                       paper.title
                     )}
@@ -119,7 +132,8 @@ const newsItems = ([...news] as NewsItem[])
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </>
         ))}
       </Section>

@@ -57,6 +57,8 @@ In `src/data/publications.json`, add to the right section's `papers` array:
   fetched automatically from the Scholar CDN. **Optional** — omit it for
   papers not yet indexed (e.g. just-accepted); the title then renders as
   plain text without a Scholar link.
+- `link` is optional (e.g. an arXiv URL). When present, the title links
+  there instead of Google Scholar.
 
 ### Add an honor / project / service
 Match the shape already in the corresponding JSON file. Use plain `&`, not

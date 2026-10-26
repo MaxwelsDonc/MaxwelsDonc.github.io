@@ -38,6 +38,18 @@
       "heading": "Manuscripts Under Review",
       "papers": [
         {
+          "title": "CC4Q Workbench: From quantum repositories to analyzable code comments",
+          "venue": "ICSE",
+          "link": "https://arxiv.org/abs/2610.32651",
+          "authors": "**Zenghui Zhou**, Y. Li, Z. Zheng"
+        },
+        {
+          "title": "LGMT: A tool for testing the logical reasoning reliability of LLMs",
+          "venue": "ICSE",
+          "link": "https://arxiv.org/abs/2610.32627",
+          "authors": "**Zenghui Zhou**, X. Fang, Z. Zheng"
+        },
+        {
           "title": "PSALM: Applying proportional sampling strategy in metamorphic testing",
           "venue": "IST",
           "paperId": "mrf-JvkAAAAJ:W7OEmFMy1HYC",
