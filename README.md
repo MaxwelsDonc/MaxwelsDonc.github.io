@@ -4,15 +4,16 @@ A clean, typography-driven academic personal homepage built with [Astro 5](https
 
 **[Live Site](https://zhouzenghui.site)**
 
+This repository is one finished homepage. To make your own, start from the template **[扉页](https://github.com/MaxwelsDonc/astro-academic)** (`astro-academic` — Use this template). The steps below are how this site itself is maintained.
+
 ---
 
-## Quick Start (5 minutes to your own site)
+## Quick Start
 
-1. **Fork this repo**
-2. **Edit `src/config.ts`** — your name, hero copy, social links, site URL
-3. **Replace `public/images/profile.jpg`** with your photo
-4. **Edit the data files** in `src/data/` — intro, education, experience, news, publications, projects, honors, services, skills
-5. **Push to `main`** — GitHub Actions deploys to GitHub Pages automatically
+1. **Edit `src/config.ts`** — name, hero copy, social links, site URL
+2. **Replace `public/images/profile.jpg`** with your photo
+3. **Edit the data files** in `src/data/` — intro, education, experience, news, publications, projects, honors, services, skills
+4. **Push to `main`** — GitHub Actions deploys to GitHub Pages automatically
 
 See **`docs/CONTENT.md`** for the full authoring guide.
 
