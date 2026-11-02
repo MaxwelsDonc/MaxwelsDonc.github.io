@@ -274,9 +274,9 @@ p {
   text-align: left;
   padding: clamp(2rem, 6vw, 4rem) 0 var(--space-sm);
 }
-/* One lockup at every width: the name stays vertically centered on the
-   portrait, and the tagline and links stay underneath. Type, portrait,
-   and gap scale with the viewport, so resizing never swaps layouts. */
+/* Name and tagline share one column beside the portrait. The pair stays
+   vertically centered on the photo, and both sizes track the viewport
+   with the portrait, so resizing never swaps layouts. */
 .hero-inner {
   display: flex;
   flex-direction: column;
@@ -288,9 +288,11 @@ p {
   justify-content: space-between;
   gap: clamp(1rem, 5vw, 4rem);
 }
-.hero h1 {
+.hero-copy {
   flex: 1 1 auto;
   min-width: 0;
+}
+.hero h1 {
   font-family: var(--font-serif);
   font-size: clamp(1.75rem, calc(6vw - 0.15rem), 4rem);
   font-weight: 500;
@@ -307,12 +309,13 @@ p {
 }
 .hero-subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(1rem, calc(0.35vw + 0.95rem), 1.125rem);
+  font-size: clamp(0.9375rem, calc(1.15vw + 0.55rem), 1.375rem);
   color: var(--color-text-secondary);
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.5;
-  margin-top: clamp(0.75rem, 2vw, 1.25rem);
+  margin-top: clamp(0.35rem, 1vw, 0.75rem);
+  margin-bottom: 0;
   max-width: 34rem;
 }
 .hero-links {

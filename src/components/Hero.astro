@@ -20,10 +20,12 @@ const links = [
   <div class="content-container">
     <div class="hero-inner">
       <div class="hero-lockup">
-        <h1>{homePage.name}<span class="hero-name-cn">{homePage.nameCn}</span></h1>
+        <div class="hero-copy">
+          <h1>{homePage.name}<span class="hero-name-cn">{homePage.nameCn}</span></h1>
+          <p class="hero-subtitle">{homePage.subtitle}</p>
+        </div>
         <img class="hero-avatar" src={author.avatar} alt={author.name} />
       </div>
-      <p class="hero-subtitle">{homePage.subtitle}</p>
       <p class="hero-links">
         {links.map((l, i) => (
           <>
