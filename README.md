@@ -25,7 +25,7 @@ See **`docs/CONTENT.md`** for the full authoring guide.
 - **Three-font system** — Newsreader serif for content, JetBrains Mono for metadata (dates, badges, nav), Inter for small UI text
 - **Warm paper palette** — `#f7f6f3` background, ink text, clay accent `#c15f3c`
 - **Dual-column table-row layout** (mono date label + serif content)
-- **Responsive** — single breakpoint at 768px, stacks gracefully on mobile
+- **Responsive** — type, portrait, and spacing scale with the viewport; rows wrap when the line runs out of room
 
 ### Engineering
 - **Single config file** — `src/config.ts` controls everything

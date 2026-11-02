@@ -184,13 +184,14 @@ a:hover {
 }
 .site-nav {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-lg);
+  gap: clamp(0.5rem, 2.5vw, 2rem);
   list-style: none;
 }
 .site-nav a {
   font-family: var(--font-sans);
-  font-size: var(--text-sm);
+  font-size: clamp(0.75rem, calc(0.3vw + 0.7rem), 0.875rem);
   font-weight: 500;
   color: var(--color-text-secondary);
   text-decoration: none;
@@ -271,20 +272,27 @@ p {
 
 .hero {
   text-align: left;
-  padding: var(--space-xl) 0 var(--space-sm);
+  padding: clamp(2rem, 6vw, 4rem) 0 var(--space-sm);
 }
+/* One lockup at every width: the name stays vertically centered on the
+   portrait, and the tagline and links stay underneath. Type, portrait,
+   and gap scale with the viewport, so resizing never swaps layouts. */
 .hero-inner {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-xl);
+  flex-direction: column;
+  align-items: stretch;
 }
-.hero-text {
-  min-width: 0;
+.hero-lockup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1rem, 5vw, 4rem);
 }
 .hero h1 {
+  flex: 1 1 auto;
+  min-width: 0;
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(1.75rem, calc(6vw - 0.15rem), 4rem);
   font-weight: 500;
   letter-spacing: -0.03em;
   color: var(--color-text);
@@ -299,27 +307,27 @@ p {
 }
 .hero-subtitle {
   font-family: var(--font-sans);
-  font-size: var(--text-lg);
+  font-size: clamp(1rem, calc(0.35vw + 0.95rem), 1.125rem);
   color: var(--color-text-secondary);
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.5;
-  margin-top: var(--space-sm);
+  margin-top: clamp(0.75rem, 2vw, 1.25rem);
   max-width: 34rem;
 }
 .hero-links {
-  margin-top: var(--space-md);
+  margin-top: clamp(0.75rem, 1.5vw, 1rem);
   font-family: var(--font-sans);
-  font-size: var(--text-base);
+  font-size: clamp(0.75rem, calc(0.55vw + 0.68rem), 1rem);
   color: var(--color-text-secondary);
 }
 .hero-links-sep {
   color: var(--color-text-muted);
-  margin: 0 var(--space-sm);
+  margin: 0 clamp(0.25rem, 0.8vw, 0.5rem);
 }
 .hero-avatar {
-  width: 152px;
-  height: 152px;
+  width: clamp(96px, calc(12vw + 20px), 152px);
+  height: clamp(96px, calc(12vw + 20px), 152px);
   object-fit: cover;
   flex-shrink: 0;
   border: 1px solid var(--color-border);
@@ -331,12 +339,12 @@ p {
    ============================================ */
 
 .section {
-  padding: var(--space-sm) 0;
+  padding: clamp(0.25rem, 1vw, 0.5rem) 0;
   scroll-margin-top: var(--space-xl);
 }
 .section-heading {
   font-family: var(--font-serif);
-  font-size: var(--text-2xl);
+  font-size: clamp(1.25rem, calc(0.5vw + 1.1rem), 1.5rem);
   font-weight: 500;
   color: var(--color-text);
   letter-spacing: -0.02em;
@@ -391,8 +399,10 @@ body strong {
 
 .row {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--space-md);
+  column-gap: var(--space-md);
+  row-gap: 0;
   padding: 0.4rem 0;
 }
 .row-label {
@@ -401,11 +411,12 @@ body strong {
   font-weight: 400;
   color: var(--color-text-muted);
   letter-spacing: 0.04em;
+  flex: 0 0 8.5rem;
   width: 8.5rem;
-  flex-shrink: 0;
   line-height: 1.7;
 }
 .row-body {
+  flex: 1 1 20rem;
   min-width: 0;
   font-family: var(--font-serif);
   font-size: var(--text-base);
@@ -434,7 +445,7 @@ body strong {
 .row-sub,
 .row-desc {
   font-family: var(--font-serif);
-  font-size: var(--text-base);
+  font-size: clamp(0.875rem, calc(0.3vw + 0.8rem), 1rem);
   color: var(--color-text-secondary);
   line-height: 1.6;
   margin-top: 1px;
@@ -533,84 +544,6 @@ body strong {
 .reveal-stagger.visible > * {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* ============================================
-   Responsive — single 768px breakpoint
-   ============================================ */
-
-@media (max-width: 768px) {
-  /* Hero — mobile: name + avatar share a row, tagline and links go full-width */
-  .hero {
-    padding: var(--space-lg) 0 var(--space-sm);
-  }
-  .hero-inner {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0 var(--space-md);
-    align-items: flex-start;
-  }
-  .hero-text {
-    display: contents;
-  }
-  .hero h1 {
-    flex: 1;
-    order: 1;
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
-  }
-  .hero-avatar {
-    order: 2;
-    width: 96px;
-    height: 96px;
-    margin-top: var(--space-xs);
-  }
-  .hero-subtitle {
-    order: 3;
-    width: 100%;
-    font-size: var(--text-base);
-  }
-  .hero-links {
-    order: 4;
-    width: 100%;
-    font-size: var(--text-xs);
-  }
-  .hero-links-sep {
-    margin: 0 var(--space-xs);
-  }
-
-  /* Sections */
-  .section {
-    padding: var(--space-xs) 0;
-  }
-  .section-heading {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-sm);
-  }
-
-  /* Dual-column → stack */
-  .row {
-    flex-direction: column;
-    gap: 0;
-    padding: 0.45rem 0;
-  }
-  .row-label {
-    width: auto;
-    flex-shrink: unset;
-  }
-
-  /* Publications */
-  .row-sub,
-  .row-desc {
-    font-size: var(--text-sm);
-  }
-
-  /* Nav — single row, smaller type */
-  .site-nav {
-    gap: var(--space-sm);
-  }
-  .site-nav a {
-    font-size: var(--text-xs);
-  }
 }
 
 /* ============================================

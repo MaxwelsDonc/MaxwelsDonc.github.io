@@ -19,25 +19,25 @@ const links = [
 <section class="hero" id="about">
   <div class="content-container">
     <div class="hero-inner">
-      <div class="hero-text">
+      <div class="hero-lockup">
         <h1>{homePage.name}<span class="hero-name-cn">{homePage.nameCn}</span></h1>
-        <p class="hero-subtitle">{homePage.subtitle}</p>
-        <p class="hero-links">
-          {links.map((l, i) => (
-            <>
-              {i > 0 && <span class="hero-links-sep">·</span>}
-              <a href={l.href}>{l.label}</a>
-            </>
-          ))}
-          {author.email && (
-            <>
-              <span class="hero-links-sep">·</span>
-              <a class="email-link" href="#" data-email={emailEncoded}>Email</a>
-            </>
-          )}
-        </p>
+        <img class="hero-avatar" src={author.avatar} alt={author.name} />
       </div>
-      <img class="hero-avatar" src={author.avatar} alt={author.name} />
+      <p class="hero-subtitle">{homePage.subtitle}</p>
+      <p class="hero-links">
+        {links.map((l, i) => (
+          <>
+            {i > 0 && <span class="hero-links-sep">·</span>}
+            <a href={l.href}>{l.label}</a>
+          </>
+        ))}
+        {author.email && (
+          <>
+            <span class="hero-links-sep">·</span>
+            <a class="email-link" href="#" data-email={emailEncoded}>Email</a>
+          </>
+        )}
+      </p>
     </div>
   </div>
 </section>
