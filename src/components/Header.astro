@@ -1,7 +1,5 @@
 ---
 import { navigation } from "../config";
-
-const currentPath = Astro.url.pathname;
 ---
 
 <header class="site-header">
@@ -10,15 +8,45 @@ const currentPath = Astro.url.pathname;
       <ul class="site-nav">
         {navigation.header.map((item) => (
           <li>
-            <a
-              href={item.href}
-              class={currentPath.startsWith(item.href) ? "active" : ""}
-            >
-              {item.label}
-            </a>
+            <a href={item.href}>{item.label}</a>
           </li>
         ))}
       </ul>
     </nav>
   </div>
 </header>
+
+<script>
+  const links = [...document.querySelectorAll<HTMLAnchorElement>(".site-nav a")];
+  const items = links.flatMap((link) => {
+    const id = link.hash.slice(1);
+    const section = id ? document.getElementById(id) : null;
+    return section ? [{ link, section }] : [];
+  });
+
+  // A section counts once its top reaches the spot scroll-margin parks it,
+  // just under the sticky header. Honors is not in the nav, so the last
+  // nav section stays marked while that part of the page is on screen.
+  function update() {
+    if (items.length === 0) return;
+    const header = document.querySelector(".site-header");
+    const headerH = header?.getBoundingClientRect().height ?? 0;
+    let current = items[0];
+    for (const item of items) {
+      const margin = parseFloat(getComputedStyle(item.section).scrollMarginTop) || 0;
+      const line = Math.max(headerH, margin) + 8;
+      if (item.section.getBoundingClientRect().top <= line) current = item;
+    }
+    for (const item of items) {
+      const on = item === current;
+      item.link.classList.toggle("active", on);
+      if (on) item.link.setAttribute("aria-current", "true");
+      else item.link.removeAttribute("aria-current");
+    }
+  }
+
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  window.addEventListener("hashchange", update);
+</script>
