@@ -13,7 +13,7 @@ This repository is one finished homepage. To make your own, start from the templ
 1. **Edit `src/config.ts`** — name, hero copy, social links, site URL
 2. **Replace `public/images/profile.jpg`** with your photo
 3. **Edit the data files** in `src/data/` — intro, education, experience, news, publications, projects, honors, services, skills
-4. **Push to `main`** — GitHub Actions deploys to GitHub Pages automatically
+4. **Open a PR and squash-merge** — CI checks it, then GitHub Actions deploys to GitHub Pages automatically
 
 See **`docs/CONTENT.md`** for the full authoring guide.
 
@@ -32,7 +32,7 @@ See **`docs/CONTENT.md`** for the full authoring guide.
 - **Single config file** — `src/config.ts` controls everything
 - **Data-driven content** — all content in `src/data/*.json` + `intro.md`, also consumed by the GitHub profile README updater
 - **Google Scholar citations** — auto-fetched via CDN, displayed per-paper
-- **GitHub Pages deployment** — push to `main`, GitHub Actions handles the rest
+- **GitHub Pages deployment** — merge a PR into `main`; GitHub Actions runs CI and deploys
 - **Near-zero runtime JS** — citation counts, scroll-reveal, email de-obfuscation only
 
 ---
@@ -140,7 +140,7 @@ npm run build        # Production build to dist/
 
 ## Deploy
 
-Push to `main`. GitHub Actions builds and deploys to GitHub Pages automatically.
+Merge a PR into `main`. CI builds the PR first; GitHub Actions then deploys to GitHub Pages automatically.
 
 For a custom domain:
 1. Edit `public/CNAME` with your domain

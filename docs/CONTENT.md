@@ -100,13 +100,16 @@ Palette reference: warm ivory `#f4f3ec`, ink `#1c1b19`, clay accent
 ## Before you push
 
 ```bash
+npm run check      # type-check Astro templates + TypeScript
 npm run build      # must pass — config has build-time validation
 npm run dev        # eyeball at localhost:4321
 ```
 
-A clean `npm run build` is the gate. Pushing to `main` triggers deploy
-(`.github/workflows/deploy.yml`). Two scheduled jobs run on their own:
-citation data (daily 08:00 UTC) and GitHub profile README (daily 02:00 UTC).
+A clean `npm run build` is the gate. `main` is protected: open a PR from a
+feature branch and squash-merge it — CI (`.github/workflows/ci.yml`) builds
+the PR first, then merging triggers deploy (`.github/workflows/deploy.yml`).
+Two scheduled jobs run on their own: citation data (daily 08:00 UTC) and
+GitHub profile README (daily 02:00 UTC).
 
 ## Maintenance
 

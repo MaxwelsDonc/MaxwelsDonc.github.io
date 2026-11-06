@@ -5,6 +5,7 @@ This is an Astro 5 static site — an academic personal homepage (single page). 
 ## Commands
 - `npm run dev` — start dev server at localhost:4321
 - `npm run build` — production build to dist/
+- `npm run check` — type-check Astro templates and TypeScript
 - `npm install` — install dependencies
 
 ## Architecture
@@ -34,6 +35,16 @@ This is an Astro 5 static site — an academic personal homepage (single page). 
 - Unified row — one entry format for all sections: `<div class="row"><span class="row-label">DATE / VENUE / ROLE</span><div class="row-body"><div class="row-title">TITLE</div><div class="row-sub">SUBLINE</div></div></div>`
 - `row-sub`/`row-desc` are optional sub-lines; `.rows-compact` wraps single-line sections (Honors, Services) for tighter rhythm
 - Citations: `<CitationCount paperId="mrf-JvkAAAAJ:XXXXX" />` (fetches from Google Scholar CDN; renders nothing when count is 0; `paperId` is optional per-paper in `publications.json`)
+
+## Git workflow
+- `main` is protected: every change lands through a pull request — no direct pushes, force pushes, or branch deletion.
+- One feature per branch, short-lived: `feat/<slug>`, `fix/<slug>`, `chore/<slug>`, `content/<slug>`.
+- Verify locally before pushing: `npm run check` and `npm run build` must both pass.
+- Open the PR against `main`; the `CI` workflow (`npm ci && npm run check && npm run build`) must be green before merging.
+- Merge with **Squash and merge** — one commit per feature on `main`. The head branch is deleted automatically after merge.
+- After merging: `git switch main && git pull --ff-only && git fetch --prune`.
+- Merging to `main` triggers the Pages deploy; there is no separate release step.
+- Content-only edits (`src/data/*.json`, `src/data/intro.md`) follow the same PR flow. The citation-data branch `google-scholar-stats` is pushed by a bot and is not part of this flow.
 
 ## Design rules (never break these)
 1. No background colors on content items (except badges)
