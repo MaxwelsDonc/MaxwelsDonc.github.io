@@ -73,9 +73,11 @@ The top block (name, tagline, link row) lives in `src/config.ts` under
 `homePage`. The avatar is `images/profile.jpg` (referenced as `author.avatar`).
 
 ### Add / remove a hero link
-The link row (`Google Scholar · GitHub · X · ORCID · Email`) renders in
+The link row (`Google Scholar · GitHub · Email`) renders in
 `src/components/Hero.astro` from `author` fields in `src/config.ts` — present
-field = shown, absent = hidden. Email stays Base64-obfuscated.
+field = shown, absent = hidden. Email stays Base64-obfuscated. `x` and `orcid`
+stay in the config for page metadata but are intentionally not shown in the
+link row.
 
 ---
 
