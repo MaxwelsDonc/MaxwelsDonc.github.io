@@ -5,9 +5,21 @@ on:
     - cron: '0 8 * * *'
   workflow_dispatch:
 
+# GITHUB_TOKEN defaults to read-only for this repo: without this the push to
+# the google-scholar-stats branch fails with 403 ("Contents: read").
+permissions:
+  contents: write
+
+# One run at a time; a hanging scrape would otherwise queue more copies.
+concurrency:
+  group: citation-data
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    # The first broken runs hung for the 6h job default before being killed.
+    timeout-minutes: 15
     steps:
     - uses: actions/checkout@v4
 
@@ -17,12 +29,24 @@ jobs:
     - name: Run crawler
       run: |
         cd ./google_scholar_crawler
-        pip3 install -r requirements.txt
-        python3 main.py
+        timeout 300 pip3 install -r requirements.txt
+        attempt=0
+        # Google Scholar occasionally stalls on datacenter IPs. Cap each try
+        # and retry a couple of times instead of hanging until the job timeout.
+        until timeout 180 python3 -u main.py; do
+          attempt=$((attempt + 1))
+          if [ "$attempt" -ge 3 ]; then
+            echo "::error::Crawler failed after 3 attempts"
+            exit 1
+          fi
+          echo "Attempt $attempt failed or timed out; retrying in 30s..."
+          sleep 30
+        done
         cd ./results
         git init
         git config --local user.name "${GITHUB_ACTOR}"
-        export remote_repo="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+        git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        export remote_repo="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
         git add *.json
         git commit -m "Updated Citation Data" || echo "No changes"
         git push "${remote_repo}" HEAD:google-scholar-stats --force
