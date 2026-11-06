@@ -11,8 +11,6 @@ const emailEncoded = author.email
 const links = [
   author.googleScholar && { href: author.googleScholar, label: "Google Scholar" },
   author.github && { href: `https://github.com/${author.github}`, label: "GitHub" },
-  author.x && { href: `https://x.com/${author.x}`, label: "X" },
-  author.orcid && { href: author.orcid, label: "ORCID" },
 ].filter((l): l is { href: string; label: string } => Boolean(l));
 ---
 
@@ -23,23 +21,23 @@ const links = [
         <div class="hero-copy">
           <h1>{homePage.name}<span class="hero-name-cn">{homePage.nameCn}</span></h1>
           <p class="hero-subtitle">{homePage.subtitle}</p>
+          <p class="hero-links">
+            {links.map((l, i) => (
+              <>
+                {i > 0 && <span class="hero-links-sep">·</span>}
+                <a href={l.href}>{l.label}</a>
+              </>
+            ))}
+            {author.email && (
+              <>
+                <span class="hero-links-sep">·</span>
+                <a class="email-link" href="#" data-email={emailEncoded}>Email</a>
+              </>
+            )}
+          </p>
         </div>
         <img class="hero-avatar" src={author.avatar} alt={author.name} />
       </div>
-      <p class="hero-links">
-        {links.map((l, i) => (
-          <>
-            {i > 0 && <span class="hero-links-sep">·</span>}
-            <a href={l.href}>{l.label}</a>
-          </>
-        ))}
-        {author.email && (
-          <>
-            <span class="hero-links-sep">·</span>
-            <a class="email-link" href="#" data-email={emailEncoded}>Email</a>
-          </>
-        )}
-      </p>
     </div>
   </div>
 </section>

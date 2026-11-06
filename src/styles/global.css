@@ -274,8 +274,8 @@ p {
   text-align: left;
   padding: clamp(2rem, 6vw, 4rem) 0 var(--space-sm);
 }
-/* Name and tagline share one column beside the portrait. The pair stays
-   vertically centered on the photo, and both sizes track the viewport
+/* Name, tagline, and links share one column beside the portrait. The column
+   stays vertically centered on the photo, and all sizes track the viewport
    with the portrait, so resizing never swaps layouts. */
 .hero-inner {
   display: flex;
@@ -320,6 +320,7 @@ p {
 }
 .hero-links {
   margin-top: clamp(0.75rem, 1.5vw, 1rem);
+  margin-bottom: 0;
   font-family: var(--font-sans);
   font-size: clamp(0.75rem, calc(0.55vw + 0.68rem), 1rem);
   color: var(--color-text-secondary);
