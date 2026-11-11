@@ -45,7 +45,7 @@
 
   /* Typography — serif for voice, sans for UI, mono for structure */
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Newsreader", "Source Serif 4", Georgia, "Times New Roman", "Songti SC", "SimSun", "STSong", serif;
+  --font-serif: "Newsreader", "Source Serif 4", Georgia, "Times New Roman", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "SimSun", "STSong", serif;
   --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", Menlo, Consolas, monospace;
 
   /* Type scale */
@@ -62,8 +62,8 @@
   --leading-normal: 1.6;
   --leading-relaxed: 1.75;
 
-  --max-w-text: 720px;
-  --max-w-content: 1100px;
+  --max-w-text: 680px;
+  --max-w-content: 820px;
 
   /* Space scale — 4px base, powers of 2 */
   --space-xs: 0.25rem;   /*  4px */
@@ -120,7 +120,10 @@ a {
   transition: text-decoration-color 0.2s ease, color 0.2s ease;
 }
 a:hover {
-  text-decoration-color: var(--color-text-secondary);
+  /* Darker than --color-accent (5.29:1 vs 3.80:1) so small links stay
+     readable on hover, not just visually warm. */
+  color: var(--color-accent-hover);
+  text-decoration-color: var(--color-accent-hover);
 }
 
 ::selection {
@@ -366,11 +369,15 @@ p {
 .section p {
   font-family: var(--font-serif);
   font-size: var(--text-base);
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--color-text-secondary);
+  font-variant-numeric: oldstyle-nums;
 }
 .section p a {
   color: var(--color-text);
+}
+.section p a:hover {
+  color: var(--color-accent-hover);
 }
 
 /* Subsection labels (e.g. "Selected Publications") */
@@ -415,6 +422,7 @@ body strong {
   font-weight: 400;
   color: var(--color-text-muted);
   letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
   flex: 0 0 8.5rem;
   width: 8.5rem;
   line-height: 1.7;
@@ -439,7 +447,8 @@ body strong {
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 .row-title a:hover {
-  color: var(--color-text-secondary);
+  color: var(--color-accent-hover);
+  text-decoration-color: var(--color-accent-hover);
 }
 .row-text {
   font-family: var(--font-serif);

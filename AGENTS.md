@@ -20,7 +20,7 @@ This is an Astro 5 static site — an academic personal homepage (single page). 
 - **Space scale**: 4px base, powers of 2 (--space-xs through --space-2xl)
 - **Type scale**: --text-xs (12px) through --text-5xl (72px)
 - **Colors**: warm ivory bg (#f4f3ec), text (#1c1b19), secondary (#55524c), muted (#a09a90), clay accent (#c15f3c), border (#e4e1d6)
-- **Layout**: max-width 1100px (content), 680px (body text)
+- **Layout**: max-width 820px (content, centered as one column), 680px (body text). About Me paragraphs span the full content column so their left and right edges align with the portrait and section dividers.
 - **Responsive**: no layout breakpoint. Type, portrait, gaps, and nav scale with `clamp()`. A `.row` stays label + body until the line runs out of room, then the body wraps under the label.
 - **Weight tiers**: labels/sub-lines 400 muted · entry titles 500 · key phrases (your name, job/degree titles) 600 — never other weights
 
