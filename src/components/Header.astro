@@ -25,8 +25,7 @@ import { navigation } from "../config";
   });
 
   // A section counts once its top reaches the spot scroll-margin parks it,
-  // just under the sticky header. Honors is not in the nav, so the last
-  // nav section stays marked while that part of the page is on screen.
+  // just under the sticky header.
   function update() {
     if (items.length === 0) return;
     const header = document.querySelector(".site-header");
@@ -36,6 +35,13 @@ import { navigation } from "../config";
       const margin = parseFloat(getComputedStyle(item.section).scrollMarginTop) || 0;
       const line = Math.max(headerH, margin) + 8;
       if (item.section.getBoundingClientRect().top <= line) current = item;
+    }
+    // The last section is shorter than the viewport and followed only by a
+    // short footer, so its top can never reach the line above. Snap to it at
+    // the bottom of the page instead of leaving the previous item lit.
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollable > 0 && window.scrollY >= scrollable - 2) {
+      current = items[items.length - 1];
     }
     for (const item of items) {
       const on = item === current;

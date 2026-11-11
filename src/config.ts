@@ -31,6 +31,7 @@ export const navigation = {
     { label: "News", href: "/#news" },
     { label: "Experience", href: "/#experience" },
     { label: "Publications", href: "/#publications" },
+    { label: "Honors", href: "/#honors" },
   ],
 };
 
