@@ -4,8 +4,6 @@ A clean, typography-driven academic personal homepage built with [Astro 5](https
 
 **[Live Site](https://zhouzenghui.site)**
 
-This repository is one finished homepage. To make your own, start from the template **[扉页](https://github.com/MaxwelsDonc/astro-academic)** (`astro-academic` — Use this template). The steps below are how this site itself is maintained.
-
 ---
 
 ## Quick Start
