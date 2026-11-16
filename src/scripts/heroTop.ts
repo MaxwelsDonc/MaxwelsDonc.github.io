@@ -6,16 +6,16 @@
 // (spin, precession, tilt, fall, rest). No dependencies, no textures, no
 // meshes on disk.
 //
-// Behaviour: it spins on its own and slowly runs down, falls onto its rim and
-// rests. Hovering re-spins it, holding the pointer down brakes it. Motion is
-// disabled under `prefers-reduced-motion` — the top is then drawn once, at
-// rest.
+// Behaviour: it spins on its own in a smooth closed cycle. Motion is disabled
+// under `prefers-reduced-motion` — the top is then drawn once.
 
 const TAU = Math.PI * 2;
 
 /** Page background and graphite, matching --color-bg / --color-text. */
 const PAPER: RGB = [244 / 255, 243 / 255, 236 / 255];
-const INK: RGB = [0.1, 0.094, 0.104];
+// A quiet warm graphite-brown, closer to the site's muted editorial palette
+// than the previous near-black pencil treatment.
+const INK: RGB = [0.42, 0.34, 0.29];
 
 type RGB = [number, number, number];
 type Pt = [number, number];
@@ -42,12 +42,7 @@ const PROFILE: Pt[] = (
 ).map(([x, y]) => [x * 1.15, y] as Pt);
 
 const HEIGHT = PROFILE[PROFILE.length - 1][1];
-const RADIAL = 56;
-
-/** The rim is the widest point; that is what the top comes to rest on. */
-const RIM = PROFILE.reduce((a, b) => (b[0] > a[0] ? b : a));
-/** Tilt at which the tip and the rim touch the ground at once. */
-const REST_TILT = Math.atan2(RIM[1], RIM[0]);
+const RADIAL = 44;
 
 /* ------------------------------------------------------------------ */
 /* Geometry                                                            */
@@ -347,9 +342,14 @@ void main() {
   float shade = clamp(max(mix(upper, lowerShade, lower), contact), 0.0, 1.0);
   shade = clamp(shade + 0.08 * smoothstep(0.18, 0.58, shade), 0.0, 1.0);
 
-  // The hatch sits on the surface, so sliding it around the axis is what
-  // makes the top look like it is spinning.
-  vec2 uv = vec2(vUv.x + uPhase, vUv.y);
+  // A broad, soft reflection drifts over the surface rather than reading as a
+  // hard animated stripe.
+  float sweep = 0.5 + 0.5 * sin((vUv.x - uPhase) * 6.2831853);
+  float lightBand = exp(-pow((sweep - 0.5) * 2.8, 2.0)) * 0.055;
+  shade = clamp(shade - lightBand, 0.0, 1.0);
+
+  // Cross-hatching stays anchored to the object as a quiet base texture.
+  vec2 uv = vUv;
   float primary = hatch(uv, -1.0, shade);
   float cross = hatch(uv, 1.0, shade) * smoothstep(0.62, 0.92, shade);
   float infill = hatch(uv + vec2(0.0, 0.012), -1.0, shade) * smoothstep(0.6, 0.9, shade);
@@ -423,8 +423,6 @@ function program(gl: WebGL2RenderingContext, vert: string, frag: string) {
   return p;
 }
 
-type BodyState = "spin" | "fall" | "rest" | "rise";
-
 /* ------------------------------------------------------------------ */
 /* One instance                                                        */
 /* ------------------------------------------------------------------ */
@@ -468,8 +466,8 @@ function mount(canvas: HTMLCanvasElement) {
   const bodyPos = buffer(mesh.position);
   const bodyNrm = buffer(mesh.normal);
   const bodyUv = buffer(mesh.uv);
-  const shadowPos = buffer(groundStrokes(18));
-  const lineMesh = sketchLines(silhouette, 7, 3);
+  const shadowPos = buffer(groundStrokes(10));
+  const lineMesh = sketchLines(silhouette, 5, 3);
   const linePos = buffer(lineMesh);
 
   const u = (prog: WebGLProgram, name: string) => gl.getUniformLocation(prog, name);
@@ -496,13 +494,11 @@ function mount(canvas: HTMLCanvasElement) {
   /* --- state ------------------------------------------------------- */
 
   let speed = 0.92;
+  // The mesh rotates forward while the surface highlight travels backward.
   let phase = 0;
   let precession = 0;
   let tilt = 0.05;
-  let tiltVel = 0;
-  let mode: BodyState = "spin";
-  let hover = false;
-  let brake = false;
+  let motionTime = 0;
   let running = false;
   let raf = 0;
   let last = 0;
@@ -543,51 +539,19 @@ function mount(canvas: HTMLCanvasElement) {
   const step = (dt: number) => {
     if (reduced) return;
 
-    if (mode === "rest") {
-      speed = 0;
-      if (hover) {
-        mode = "rise";
-        speed = 0.6;
-      }
-      return;
-    }
-
-    if (brake) speed *= Math.exp(-dt * 2.4);
-    else if (hover) speed += (0.95 - speed) * (1 - Math.exp(-dt * 6));
-    else speed = Math.max(0.36, speed * Math.exp(-dt * 0.16));
-
-    phase = (phase + speed * 0.4 * dt) % 1;
-    const slow = Math.max(0, 1 - speed / 0.8);
-
-    if (mode === "spin" || mode === "rise") {
-      // Precession runs faster as the top slows down: the visible cue that
-      // sells the whole thing.
-      precession += dt * (0.55 + 0.3 / (speed + 0.12));
-      const target =
-        0.045 + slow * slow * 0.62 + Math.sin(precession * 2.7) * slow * slow * slow * 0.12;
-      tilt += (target - tilt) * (1 - Math.exp(-dt * 6));
-      if (mode === "rise" && tilt < 0.09 && speed > 0.5) mode = "spin";
-      if (speed < 0.16) {
-        mode = "fall";
-        tiltVel = 0;
-      }
-    } else if (hover) {
-      mode = "rise";
-      speed = Math.max(speed, 0.6);
-    } else {
-      // Fall: an under-damped spring onto the resting angle, so it lands with
-      // one small wobble instead of a linear slide.
-      tiltVel += ((REST_TILT - tilt) * 16 - tiltVel * 4.2) * dt;
-      tilt += tiltVel * dt;
-      precession += dt * 0.4;
-      if (Math.abs(tilt - REST_TILT) < 0.006 && Math.abs(tiltVel) < 0.04) {
-        tilt = REST_TILT;
-        mode = "rest";
-        speed = 0;
-      }
-    }
-
-    tilt = Math.max(0, Math.min(REST_TILT + 0.01, tilt));
+    // A closed, continuously differentiable cycle avoids the visible hitch
+    // caused by switching between spinning, falling, and resting states.
+    motionTime = (motionTime + dt) % 12;
+    const cycle = (motionTime / 12) * TAU;
+    phase = motionTime / 12;
+    const cycleEase = 0.5 - 0.5 * Math.cos(cycle);
+    const targetSpeed = 0.42 + 0.06 * Math.sin(cycle);
+    speed += (targetSpeed - speed) * (1 - Math.exp(-dt * 4));
+    // Keep the full orientation periodic too: using a fractional multiplier
+    // here made the top finish one cycle at a different azimuth and snap when
+    // motionTime wrapped back to zero.
+    precession = cycle + Math.sin(cycle * 2) * 0.08;
+    tilt = 0.045 + cycleEase * 0.07 + Math.sin(cycle * 2) * 0.008;
   };
 
   /* --- draw -------------------------------------------------------- */
@@ -607,7 +571,7 @@ function mount(canvas: HTMLCanvasElement) {
     // Ground strokes first: they sit under everything else.
     gl.useProgram(flatProgram);
     gl.uniformMatrix4fv(flatUniforms.mvp, false, vp);
-    gl.uniform4f(flatUniforms.color, INK[0], INK[1], INK[2], 0.26);
+    gl.uniform4f(flatUniforms.color, INK[0], INK[1], INK[2], 0.14);
     bind(flatProgram, "aPos", shadowPos, 3);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -636,7 +600,7 @@ function mount(canvas: HTMLCanvasElement) {
     gl.uniformMatrix4fv(bodyUniforms.model, false, model);
     gl.uniformMatrix3fv(bodyUniforms.nmat, false, normalMatrix(model));
     gl.uniform1f(bodyUniforms.phase, phase);
-    gl.uniform1f(bodyUniforms.hatch, 0.6);
+    gl.uniform1f(bodyUniforms.hatch, 0.46);
     gl.uniform3f(bodyUniforms.paper, PAPER[0], PAPER[1], PAPER[2]);
     gl.uniform3f(bodyUniforms.ink, INK[0], INK[1], INK[2]);
     bind(bodyProgram, "aPos", bodyPos, 3);
@@ -644,14 +608,16 @@ function mount(canvas: HTMLCanvasElement) {
     bind(bodyProgram, "aUv", bodyUv, 2);
     gl.drawElements(gl.TRIANGLES, triangleCount, gl.UNSIGNED_SHORT, 0);
 
-    // Construction lines last, floating a hair above the surface so they read
-    // as graphite drawn over the hatch.
+    // Construction lines last. They are an ink overlay rather than depth-tested
+    // geometry; keeping them out of the depth buffer prevents z-fighting as the
+    // rotating surface crosses pixel boundaries.
+    gl.disable(gl.DEPTH_TEST);
     gl.depthMask(false);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
     gl.useProgram(flatProgram);
     gl.uniformMatrix4fv(flatUniforms.mvp, false, mvp);
-    gl.uniform4f(flatUniforms.color, INK[0], INK[1], INK[2], 0.55);
+    gl.uniform4f(flatUniforms.color, INK[0], INK[1], INK[2], 0.48);
     bind(flatProgram, "aPos", linePos, 3);
     gl.drawArrays(gl.LINES, 0, lineMesh.length / 3);
     gl.disable(gl.BLEND);
@@ -681,22 +647,6 @@ function mount(canvas: HTMLCanvasElement) {
     cancelAnimationFrame(raf);
   };
 
-  canvas.addEventListener("pointerenter", () => {
-    hover = true;
-  });
-  canvas.addEventListener("pointerleave", () => {
-    hover = false;
-    brake = false;
-  });
-  canvas.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0) return;
-    brake = true;
-    event.preventDefault();
-  });
-  window.addEventListener("pointerup", () => {
-    brake = false;
-  });
-
   let visible = true;
 
   document.addEventListener("visibilitychange", () => {
@@ -716,8 +666,8 @@ function mount(canvas: HTMLCanvasElement) {
   }
 
   if (reduced) {
-    // One still frame: the top at rest, lying on its rim.
-    tilt = REST_TILT;
+    // One still frame: a balanced, quiet pose.
+    tilt = 0.06;
     precession = 0.6;
     resize();
     draw();
