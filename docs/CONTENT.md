@@ -70,7 +70,11 @@ site-wide without deleting data.
 
 ### Hero copy
 The top block (name, tagline, link row) lives in `src/config.ts` under
-`homePage`. The avatar is `images/profile.jpg` (referenced as `author.avatar`).
+`homePage`. The portrait is no longer on the page: the hero's right-hand mark is a
+pencil-sketch spinning top (`src/components/HeroTop.astro`, drawn with raw WebGL2 —
+it spins on its own, re-spins on hover, brakes while pressed, and renders a single
+still frame under `prefers-reduced-motion`). The photo at `images/profile.jpg`
+(`author.avatar`) is still the social/OG image, so keep it updated anyway.
 
 ### Add / remove a hero link
 The link row (`Google Scholar · GitHub · Email`) renders in

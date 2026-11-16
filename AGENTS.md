@@ -31,7 +31,7 @@ This is an Astro 5 static site — an academic personal homepage (single page). 
 ## Homepage editing
 - Edit `src/pages/index.astro` directly
 - Sections use `<Section title="..." id="...">` wrapper (id = anchor target); the intro block is a plain `<section>` without heading
-- Hero (name, tagline, text links, avatar) is `src/components/Hero.astro`, driven by `homePage` in `src/config.ts`
+- Hero (name, tagline, text links, pencil-sketch top) is `src/components/Hero.astro`, driven by `homePage` in `src/config.ts`; the top is `src/components/HeroTop.astro` + `src/scripts/heroTop.ts` (raw WebGL2, decorative, no dependencies, static under `prefers-reduced-motion`)
 - Unified row — one entry format for all sections: `<div class="row"><span class="row-label">DATE / VENUE / ROLE</span><div class="row-body"><div class="row-title">TITLE</div><div class="row-sub">SUBLINE</div></div></div>`
 - `row-sub`/`row-desc` are optional sub-lines; `.rows-compact` wraps single-line sections (Honors, Services) for tighter rhythm
 - Citations: `<CitationCount paperId="mrf-JvkAAAAJ:XXXXX" />` (fetches from Google Scholar CDN; renders nothing when count is 0; `paperId` is optional per-paper in `publications.json`)
