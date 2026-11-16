@@ -1,5 +1,6 @@
 ---
 import { author, homePage } from "../config";
+import HeroTop from "./HeroTop.astro";
 
 // Email is Base64-encoded at build time and reassembled into a mailto:
 // link by client-side JS. This keeps the plain address out of the static
@@ -36,7 +37,7 @@ const links = [
             )}
           </p>
         </div>
-        <img class="hero-avatar" src={author.avatar} alt={author.name} />
+        <HeroTop />
       </div>
     </div>
   </div>

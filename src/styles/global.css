@@ -341,6 +341,24 @@ p {
   border-radius: 8px;
 }
 
+/* Pencil-sketch top in the portrait's place. The canvas paints on transparent,
+   so only the graphite marks are visible. */
+.hero-top {
+  flex-shrink: 0;
+  width: clamp(104px, calc(12vw + 24px), 172px);
+  height: clamp(104px, calc(12vw + 24px), 172px);
+}
+.hero-top-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+.hero-top.is-ready .hero-top-canvas {
+  opacity: 1;
+}
+
 /* ============================================
    Section — shared page structure
    ============================================ */
@@ -602,7 +620,8 @@ body strong {
   .site-header,
   .site-footer,
   .skip-link,
-  .badge-citation {
+  .badge-citation,
+  .hero-top {
     display: none !important;
   }
   /* Never print blank: force all reveal content visible */
