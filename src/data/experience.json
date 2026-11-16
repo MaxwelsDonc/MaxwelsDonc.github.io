@@ -1,9 +1,15 @@
 [
   {
-    "date": "2026.08 – Present",
+    "date": "2026.11 – Present",
+    "title": "Evaluation Algorithm Intern",
+    "company": "TensorWorld",
+    "description": "Setting up the company's evaluation system: defining what the models are measured on, how results are scored, and the pipeline that keeps evaluation running as a repeatable, comparable process."
+  },
+  {
+    "date": "2026.08 – 2026.11",
     "title": "Multimodal Evaluation Algorithm Intern",
     "company": "Kling AI, Kuaishou (可灵 AI · 快手)",
-    "description": "Building MLLM-as-Judge evaluation pipelines for image stylization (human-agreement lifted from 56% to 71%); designed a VLLM-OCR coupled detector for text-rendering defects in generated content; distilling VQA/Rubric quality signals into reward models for RL-stage training alignment."
+    "description": "Built MLLM-as-Judge evaluation pipelines for image stylization (human agreement lifted from 56% to 71%); designed a VLLM-OCR coupled detector for text-rendering defects in generated content; distilled VQA/Rubric quality signals into reward models for RL-stage training alignment."
   },
   {
     "date": "2026.04 – 2026.08",

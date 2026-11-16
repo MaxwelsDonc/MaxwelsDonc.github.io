@@ -1,5 +1,13 @@
 [
   {
+    "date": "2026.11",
+    "text": "Joined ",
+    "link": "https://www.tensorworld.com",
+    "linkText": "TensorWorld",
+    "suffix": " as an Evaluation Algorithm Intern.",
+    "detail": "Building the company's evaluation system from scratch — what gets measured, how it is scored, and the pipeline that runs it."
+  },
+  {
     "date": "2026.09",
     "text": "Our empirical study on code comments for quantum SDKs was published in ACM TOSEM (CCF-A).",
     "detail": "First-author work on comment practices in quantum software development kits (Qiskit)."
