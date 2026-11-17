@@ -13,9 +13,8 @@ const TAU = Math.PI * 2;
 
 /** Page background and graphite, matching --color-bg / --color-text. */
 const PAPER: RGB = [244 / 255, 243 / 255, 236 / 255];
-// A quiet warm graphite-brown, closer to the site's muted editorial palette
-// than the previous near-black pencil treatment.
-const INK: RGB = [0.42, 0.34, 0.29];
+// Near-black graphite for the contour and construction lines.
+const INK: RGB = [0.1, 0.094, 0.104];
 
 type RGB = [number, number, number];
 type Pt = [number, number];
