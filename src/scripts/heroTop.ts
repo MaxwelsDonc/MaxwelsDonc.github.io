@@ -328,6 +328,17 @@ float hatch(vec2 uv, float dir, float shade) {
   return line * ends * keep * grain * mix(0.18, 1.0, tone);
 }
 
+// A continuous helix running from the tip upward around the body. Unlike the
+// old cross-hatch, this line family has a clear vertical origin and ascent.
+float spiralLine(vec2 uv, float turns, float pitch, float shade) {
+  float q = uv.x * turns - uv.y * pitch + uPhase * turns;
+  float d = abs(fract(q) - 0.5);
+  float aa = max(fwidth(q), 0.018);
+  float line = 1.0 - smoothstep(0.07 + aa, 0.15 + aa, d);
+  float tone = smoothstep(0.12, 0.9, shade);
+  return line * mix(0.18, 1.0, tone);
+}
+
 void main() {
   vec3 n = normalize(vNrm);
 
@@ -348,12 +359,12 @@ void main() {
   float lightBand = exp(-pow((sweep - 0.5) * 2.8, 2.0)) * 0.055;
   shade = clamp(shade - lightBand, 0.0, 1.0);
 
-  // Cross-hatching stays anchored to the object as a quiet base texture.
+  // The main surface drawing is a small family of continuous upward spirals.
   vec2 uv = vUv;
-  float primary = hatch(uv, -1.0, shade);
-  float cross = hatch(uv, 1.0, shade) * smoothstep(0.62, 0.92, shade);
-  float infill = hatch(uv + vec2(0.0, 0.012), -1.0, shade) * smoothstep(0.6, 0.9, shade);
-  float marks = clamp((primary + cross * 0.22 + infill * 0.3) * uHatch, 0.0, 0.96);
+  float primary = spiralLine(uv, 7.0, 2.8, shade);
+  float companion = spiralLine(uv + vec2(0.045, 0.0), 7.0, 2.8, shade) * 0.28;
+  float quietCross = hatch(uv, 1.0, shade) * 0.08;
+  float marks = clamp((primary * 0.62 + companion + quietCross) * uHatch, 0.0, 0.96);
 
   outColor = vec4(mix(uPaper, uInk, marks), 1.0);
 }`;
