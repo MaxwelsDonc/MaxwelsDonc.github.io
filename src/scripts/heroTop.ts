@@ -23,20 +23,22 @@ type Pt = [number, number];
 const PROFILE: Pt[] = (
   [
     [0, 0],
-    [0.1, 0.16],
-    [0.26, 0.4],
-    [0.44, 0.67],
-    [0.69, 0.88],
-    [1, 1.02],
-    [1, 1.12],
-    [0.79, 1.21],
-    [0.52, 1.38],
-    [0.32, 1.58],
-    [0.21, 1.78],
-    [0.17, 1.92],
-    [0.13, 2.0],
-    [0.07, 2.05],
-    [0, 2.06],
+    [0.1, 0.14],
+    [0.28, 0.38],
+    [0.58, 0.68],
+    [0.86, 0.88],
+    [1.04, 1.0],
+    [1.04, 1.12],
+    [0.82, 1.2],
+    [0.5, 1.28],
+    [0.27, 1.4],
+    [0.16, 1.55],
+    [0.13, 1.72],
+    [0.15, 1.86],
+    [0.25, 1.94],
+    [0.22, 2.03],
+    [0.12, 2.1],
+    [0, 2.14],
   ] as Pt[]
 ).map(([x, y]) => [x * 1.15, y] as Pt);
 
@@ -161,6 +163,20 @@ function sketchLines(profile: Pt[], meridians: number, rings: number): Float32Ar
     for (let s = 0; s < segments; s++) {
       const p = at(i, (s / segments) * TAU);
       const q = at(i, ((s + 1) / segments) * TAU);
+      out.push(p[0], p[1], p[2], q[0], q[1], q[2]);
+    }
+  }
+  // One clean ellipse marks the wide disk edge, making the toy's structure
+  // readable even when the surface fill is intentionally plain.
+  const rimIndex = profile.reduce(
+    (best, point, index, points) => (point[0] > points[best][0] ? index : best),
+    0,
+  );
+  if (profile[rimIndex][0] >= 0.025) {
+    const segments = 64;
+    for (let s = 0; s < segments; s++) {
+      const p = at(rimIndex, (s / segments) * TAU);
+      const q = at(rimIndex, ((s + 1) / segments) * TAU);
       out.push(p[0], p[1], p[2], q[0], q[1], q[2]);
     }
   }
