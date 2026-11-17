@@ -353,20 +353,9 @@ void main() {
   float shade = clamp(max(mix(upper, lowerShade, lower), contact), 0.0, 1.0);
   shade = clamp(shade + 0.08 * smoothstep(0.18, 0.58, shade), 0.0, 1.0);
 
-  // A broad, soft reflection drifts over the surface rather than reading as a
-  // hard animated stripe.
-  float sweep = 0.5 + 0.5 * sin((vUv.x - uPhase) * 6.2831853);
-  float lightBand = exp(-pow((sweep - 0.5) * 2.8, 2.0)) * 0.055;
-  shade = clamp(shade - lightBand, 0.0, 1.0);
-
-  // The main surface drawing is a small family of continuous upward spirals.
-  vec2 uv = vUv;
-  float primary = spiralLine(uv, 7.0, 2.8, shade);
-  float companion = spiralLine(uv + vec2(0.045, 0.0), 7.0, 2.8, shade) * 0.28;
-  float quietCross = hatch(uv, 1.0, shade) * 0.08;
-  float marks = clamp((primary * 0.62 + companion + quietCross) * uHatch, 0.0, 0.96);
-
-  outColor = vec4(mix(uPaper, uInk, marks), 1.0);
+  // Keep the body as clean paper. The visible drawing is carried by the
+  // separate contour and construction-line passes below.
+  outColor = vec4(uPaper, 1.0);
 }`;
 
 // A slightly inflated copy of the body drawn underneath it. Every face is
