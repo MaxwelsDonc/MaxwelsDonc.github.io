@@ -44,11 +44,6 @@ const PROFILE: Pt[] = (
 const HEIGHT = PROFILE[PROFILE.length - 1][1];
 const RADIAL = 56;
 
-/** The rim is the widest point; that is what the top comes to rest on. */
-const RIM = PROFILE.reduce((a, b) => (b[0] > a[0] ? b : a));
-/** Tilt at which the tip and the rim touch the ground at once. */
-const REST_TILT = Math.atan2(RIM[1], RIM[0]);
-
 /* ------------------------------------------------------------------ */
 /* Geometry                                                            */
 /* ------------------------------------------------------------------ */
@@ -169,27 +164,6 @@ function sketchLines(profile: Pt[], meridians: number, rings: number): Float32Ar
       const q = at(i, ((s + 1) / segments) * TAU);
       out.push(p[0], p[1], p[2], q[0], q[1], q[2]);
     }
-  }
-  return new Float32Array(out);
-}
-
-/** A handful of graphite strokes on the ground below the tip. */
-function groundStrokes(count: number): Float32Array {
-  const out: number[] = [];
-  let seed = 7;
-  const rnd = () => {
-    seed = (seed * 16807) % 2147483647;
-    return seed / 2147483647;
-  };
-  for (let i = 0; i < count; i++) {
-    const a = rnd() * TAU;
-    const r = 0.16 + Math.sqrt(rnd()) * 0.6;
-    const len = 0.05 + rnd() * 0.16;
-    const tx = -Math.sin(a) * len * 0.5;
-    const tz = Math.cos(a) * len * 0.5;
-    const x = Math.cos(a) * r;
-    const z = Math.sin(a) * r;
-    out.push(x - tx, 0.002, z - tz, x + tx, 0.002, z + tz);
   }
   return new Float32Array(out);
 }
@@ -423,8 +397,6 @@ function program(gl: WebGL2RenderingContext, vert: string, frag: string) {
   return p;
 }
 
-type BodyState = "spin" | "fall" | "rest" | "rise";
-
 /* ------------------------------------------------------------------ */
 /* One instance                                                        */
 /* ------------------------------------------------------------------ */
@@ -468,7 +440,6 @@ function mount(canvas: HTMLCanvasElement) {
   const bodyPos = buffer(mesh.position);
   const bodyNrm = buffer(mesh.normal);
   const bodyUv = buffer(mesh.uv);
-  const shadowPos = buffer(groundStrokes(18));
   const lineMesh = sketchLines(silhouette, 7, 3);
   const linePos = buffer(lineMesh);
 
@@ -495,12 +466,10 @@ function mount(canvas: HTMLCanvasElement) {
 
   /* --- state ------------------------------------------------------- */
 
-  let speed = 0.92;
+  let speed = 0.58;
   let phase = 0;
   let precession = 0;
-  let tilt = 0.05;
-  let tiltVel = 0;
-  let mode: BodyState = "spin";
+  let tilt = 0.08;
   let hover = false;
   let brake = false;
   let running = false;
@@ -543,51 +512,15 @@ function mount(canvas: HTMLCanvasElement) {
   const step = (dt: number) => {
     if (reduced) return;
 
-    if (mode === "rest") {
-      speed = 0;
-      if (hover) {
-        mode = "rise";
-        speed = 0.6;
-      }
-      return;
-    }
-
-    if (brake) speed *= Math.exp(-dt * 2.4);
-    else if (hover) speed += (0.95 - speed) * (1 - Math.exp(-dt * 6));
-    else speed = Math.max(0.36, speed * Math.exp(-dt * 0.16));
-
+    // Keep the top in a perpetual, gentle motion. The old animation ran down,
+    // fell onto its rim, and restarted on hover, which made the loop feel like
+    // it was catching at its endpoints. Speed and tilt now ease continuously.
+    const targetSpeed = brake ? 0.3 : hover ? 0.72 : 0.58;
+    speed += (targetSpeed - speed) * (1 - Math.exp(-dt * 4));
     phase = (phase + speed * 0.4 * dt) % 1;
-    const slow = Math.max(0, 1 - speed / 0.8);
-
-    if (mode === "spin" || mode === "rise") {
-      // Precession runs faster as the top slows down: the visible cue that
-      // sells the whole thing.
-      precession += dt * (0.55 + 0.3 / (speed + 0.12));
-      const target =
-        0.045 + slow * slow * 0.62 + Math.sin(precession * 2.7) * slow * slow * slow * 0.12;
-      tilt += (target - tilt) * (1 - Math.exp(-dt * 6));
-      if (mode === "rise" && tilt < 0.09 && speed > 0.5) mode = "spin";
-      if (speed < 0.16) {
-        mode = "fall";
-        tiltVel = 0;
-      }
-    } else if (hover) {
-      mode = "rise";
-      speed = Math.max(speed, 0.6);
-    } else {
-      // Fall: an under-damped spring onto the resting angle, so it lands with
-      // one small wobble instead of a linear slide.
-      tiltVel += ((REST_TILT - tilt) * 16 - tiltVel * 4.2) * dt;
-      tilt += tiltVel * dt;
-      precession += dt * 0.4;
-      if (Math.abs(tilt - REST_TILT) < 0.006 && Math.abs(tiltVel) < 0.04) {
-        tilt = REST_TILT;
-        mode = "rest";
-        speed = 0;
-      }
-    }
-
-    tilt = Math.max(0, Math.min(REST_TILT + 0.01, tilt));
+    precession += dt * (0.52 + speed * 0.16);
+    const targetTilt = 0.08 + Math.sin(precession * 0.9) * 0.035;
+    tilt += (targetTilt - tilt) * (1 - Math.exp(-dt * 3.5));
   };
 
   /* --- draw -------------------------------------------------------- */
@@ -603,16 +536,6 @@ function mount(canvas: HTMLCanvasElement) {
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LEQUAL);
     gl.depthMask(true);
-
-    // Ground strokes first: they sit under everything else.
-    gl.useProgram(flatProgram);
-    gl.uniformMatrix4fv(flatUniforms.mvp, false, vp);
-    gl.uniform4f(flatUniforms.color, INK[0], INK[1], INK[2], 0.26);
-    bind(flatProgram, "aPos", shadowPos, 3);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-    gl.drawArrays(gl.LINES, 0, 36);
-    gl.disable(gl.BLEND);
 
     // Contour: the inflated shell, painted under the body without depth. What
     // survives around the edge is an uneven pencil line, not a mathematical
@@ -716,8 +639,8 @@ function mount(canvas: HTMLCanvasElement) {
   }
 
   if (reduced) {
-    // One still frame: the top at rest, lying on its rim.
-    tilt = REST_TILT;
+    // One still frame with the top upright and balanced.
+    tilt = 0.08;
     precession = 0.6;
     resize();
     draw();

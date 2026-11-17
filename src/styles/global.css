@@ -173,15 +173,18 @@ a:hover {
    ============================================ */
 
 .site-header {
-  padding: var(--space-sm) 0;
-  position: sticky;
+  padding: 0;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
   background: var(--color-glass);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
 .site-header .content-container {
+  min-height: 28px;
   display: flex;
   align-items: center;
 }
@@ -205,10 +208,29 @@ a:hover {
   background-position: left 100%;
   transition: color 0.2s ease, background-size 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.header-accent {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.header-accent .hero-top {
+  width: 28px;
+  height: 28px;
+}
+.header-accent .hero-top-canvas {
+  opacity: 0.72;
+}
+
 .site-nav a:hover,
 .site-nav a.active {
   color: var(--color-text);
   background-size: 100% 1px;
+}
+
+/* Fixed header offset */
+main {
+  padding-top: 2rem;
 }
 
 /* ============================================
@@ -341,8 +363,7 @@ p {
   border-radius: 8px;
 }
 
-/* Pencil-sketch top in the portrait's place. The canvas paints on transparent,
-   so only the graphite marks are visible. */
+/* Small animated accent used in the header. The canvas stays transparent. */
 .hero-top {
   flex-shrink: 0;
   width: clamp(104px, calc(12vw + 24px), 172px);
