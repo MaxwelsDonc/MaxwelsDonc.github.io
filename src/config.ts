@@ -12,7 +12,7 @@ export const site = {
 };
 
 export const author = {
-  name: "Zhou Zenghui (周增辉)",
+  name: "Zhou Zenghui",
   avatar: "/images/profile.jpg",
   bio: "Ph.D. Candidate, Beihang University",
   location: "Beijing, China",
@@ -37,7 +37,6 @@ export const navigation = {
 
 export const homePage = {
   name: "Zhou Zenghui",
-  nameCn: "周增辉",
   subtitle: "Token is cheap, attention is expensive.",
   /** Toggle sections on/off. Set false to hide a section entirely. */
   sections: {

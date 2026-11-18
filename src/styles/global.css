@@ -325,13 +325,6 @@ p {
   color: var(--color-text);
   line-height: 1.05;
 }
-.hero h1 .hero-name-cn {
-  font-size: 0.45em;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--color-text-muted);
-  margin-left: 0.2em;
-}
 .hero-subtitle {
   font-family: var(--font-sans);
   font-size: clamp(0.9375rem, calc(1.15vw + 0.55rem), 1.375rem);
