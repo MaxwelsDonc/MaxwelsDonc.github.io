@@ -517,9 +517,7 @@ function mount(canvas: HTMLCanvasElement) {
     // it was catching at its endpoints. Speed and tilt now ease continuously.
     const targetSpeed = brake ? 0.3 : hover ? 0.72 : 0.58;
     speed += (targetSpeed - speed) * (1 - Math.exp(-dt * 4));
-    // Keep phase unbounded. Wrapping it back to zero changes the procedural
-    // graphite pattern by one large texture step and creates a visible hitch.
-    phase += speed * 0.4 * dt;
+    phase = (phase + speed * 0.4 * dt) % 1;
     precession += dt * (0.52 + speed * 0.16);
     const targetTilt = 0.08 + Math.sin(precession * 0.9) * 0.035;
     tilt += (targetTilt - tilt) * (1 - Math.exp(-dt * 3.5));
