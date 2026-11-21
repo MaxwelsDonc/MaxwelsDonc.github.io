@@ -9,8 +9,7 @@
   },
   {
     "date": "2026.09",
-    "text": "Our empirical study on code comments for quantum SDKs was published in ACM TOSEM (CCF-A).",
-    "detail": "First-author work on comment practices in quantum software development kits (Qiskit)."
+    "text": "ACM TOSEM (CCF-A) published my first-author paper on code comments in Qiskit, a quantum software development kit."
   },
   {
     "date": "2026.08",
@@ -22,7 +21,7 @@
   },
   {
     "date": "2026.07",
-    "text": "SenWorld was accepted by ISSREW 2026 (co-located with IEEE ISSRE).",
+    "text": "Our paper on SenWorld was accepted at ISSREW 2026 (co-located with IEEE ISSRE).",
     "detail": "A digital-twin simulation for generating context-rich, oracle-labeled evaluation data."
   },
   {
