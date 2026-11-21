@@ -37,14 +37,13 @@ This is an Astro 5 static site — an academic personal homepage (single page). 
 - Citations: `<CitationCount paperId="mrf-JvkAAAAJ:XXXXX" />` (fetches from Google Scholar CDN; renders nothing when count is 0; `paperId` is optional per-paper in `publications.json`)
 
 ## Git workflow
-- `main` is protected: every change lands through a pull request — no direct pushes, force pushes, or branch deletion.
-- One feature per branch, short-lived: `feat/<slug>`, `fix/<slug>`, `chore/<slug>`, `content/<slug>`.
-- Verify locally before pushing: `npm run check` and `npm run build` must both pass.
-- Open the PR against `main`; the `CI` workflow (`npm ci && npm run check && npm run build`) must be green before merging.
-- Merge with **Squash and merge** — one commit per feature on `main`. The head branch is deleted automatically after merge.
-- After merging: `git switch main && git pull --ff-only && git fetch --prune`.
-- Merging to `main` triggers the Pages deploy; there is no separate release step.
-- Content-only edits (`src/data/*.json`, `src/data/intro.md`) follow the same PR flow. The citation-data branch `google-scholar-stats` is pushed by a bot and is not part of this flow.
+
+1. Start each feature, fix, maintenance task, or content change from an up-to-date `main`. Run `git switch main` and `git pull --ff-only`, then create a fresh branch with `git switch -c <branch>` before editing. Use `feat/<slug>`, `fix/<slug>`, `chore/<slug>`, or `content/<slug>` and keep one task per branch.
+2. Run `npm run check` and `npm run build` locally. Once both pass, push the task branch and open a pull request against `main`. Keep `main` protected from direct pushes, force pushes, and deletion.
+3. Wait for the PR's `CI` workflow (`npm ci && npm run check && npm run build`) to pass, then use **Squash and merge**. The merge triggers the GitHub Pages deployment.
+4. Once the PR is merged, switch back to `main` and run `git pull --ff-only`. Delete the remote task branch with `git push origin --delete <branch>` if GitHub has not already removed it, then run `git fetch --prune`. Delete the local task branch with `git branch -d <branch>`. If Git refuses after a squash merge, verify that the merged PR's head SHA matches the local branch tip before using `git branch -D <branch>`.
+
+The bot maintains `google-scholar-stats` separately. Exclude it from task-branch cleanup.
 
 ## Design rules (never break these)
 1. No background colors on content items (except badges)
