@@ -16,7 +16,7 @@ This is an Astro 5 static site — an academic personal homepage (single page). 
 - No content collections, no blog, no RSS (removed; do not reintroduce without asking)
 
 ## Key conventions
-- **Fonts**: no webfonts and no font files in the repo — three roles mapped to system families via `--font-serif` (voice), `--font-mono` (metadata), `--font-sans` (small UI text). The site must not load a font over the network.
+- **Fonts**: Newsreader (serif, content) + JetBrains Mono (monospace, metadata) + Inter (sans-serif, small UI text) via Bunny CDN
 - **Space scale**: 4px base, powers of 2 (--space-xs through --space-2xl)
 - **Type scale**: --text-xs (12px) through --text-5xl (72px)
 - **Colors**: warm ivory bg (#f4f3ec), text (#1c1b19), secondary (#55524c), muted (#a09a90), clay accent (#c15f3c), border (#e4e1d6)
