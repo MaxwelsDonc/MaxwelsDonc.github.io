@@ -21,7 +21,7 @@ See **`docs/CONTENT.md`** for the full authoring guide.
 
 ### Design
 - **Editorial Minimalism** — typography-first, no cards, no background colors
-- **System type stack** — serif for content, monospace for metadata (dates, badges, nav), system-ui for small UI text; no webfonts to download
+- **Three-font system** — Newsreader serif for content, JetBrains Mono for metadata (dates, badges, nav), Inter for small UI text
 - **Warm paper palette** — `#f7f6f3` background, ink text, clay accent `#c15f3c`
 - **Dual-column table-row layout** (mono date label + serif content)
 - **Responsive** — type, portrait, and spacing scale with the viewport; rows wrap when the line runs out of room
