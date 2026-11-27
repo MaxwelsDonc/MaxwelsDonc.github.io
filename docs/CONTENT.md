@@ -89,9 +89,9 @@ link row.
 
 1. No background colors on content items (except badges).
 2. No border-radius or box-shadow on content blocks (there are no cards).
-3. Serif (Newsreader) for content; monospace (JetBrains Mono) for metadata
-   — dates, badges, sub-headings, nav, tags; sans-serif (Inter) is reserved
-   for small UI text.
+3. Serif (`--font-serif`) for content; monospace (`--font-mono`) for metadata
+   — dates, badges, sub-headings, nav, tags; sans (`--font-sans`) is reserved
+   for small UI text. All three are system stacks: no webfont is loaded.
 4. Hover effects are color transitions plus at most a slight scale via the
    `--hover-scale-text` / `--hover-scale-icon` tokens — never shadow or
    background.
